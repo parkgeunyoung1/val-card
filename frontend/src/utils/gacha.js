@@ -24,3 +24,8 @@ export function pull() {
     return { ...pickPlayer(role, rarity), rarity };
   });
 }
+
+export function pullOne(role) {
+  const rarity = pickRarity();
+  return { ...pickPlayer(role, rarity), rarity };
+}

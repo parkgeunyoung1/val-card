@@ -1,76 +1,91 @@
 import { useState, useRef } from 'react';
-import { pull } from '../utils/gacha';
+import { pull, pullOne } from '../utils/gacha';
 import PlayerCard from '../components/PlayerCard';
 import LegendReveal from '../components/LegendReveal';
 import './GachaPage.css';
 
 const ROLES = ['DUELIST', 'INITIATOR', 'FLEX', 'SENTINEL', 'CONTROLLER'];
-
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-function EmptySlot({ role }) {
+function EmptySlot({ role, onClick, disabled }) {
   return (
-    <div className="empty-slot">
+    <div
+      className={`empty-slot${disabled ? ' disabled' : ''}`}
+      onClick={disabled ? undefined : onClick}
+      title={`${role} 카드 뽑기`}
+    >
       <span className="corner tl" /><span className="corner tr" />
       <span className="corner bl" /><span className="corner br" />
       <div className="slot-question">?</div>
       <div className="slot-role">{role}</div>
-      <div className="slot-cta">CLICK TO SUMMON</div>
+      <div className="slot-cta">클릭하여 뽑기</div>
+    </div>
+  );
+}
+
+function FilledSlot({ card, onClick, disabled }) {
+  return (
+    <div
+      className={`filled-slot${disabled ? ' disabled' : ''}`}
+      onClick={disabled ? undefined : onClick}
+      title="클릭하여 다시 뽑기"
+    >
+      <PlayerCard player={card} delay={0} />
+      <div className="reroll-overlay">
+        <span className="reroll-icon">🔄</span>
+        <span className="reroll-text">다시 뽑기</span>
+      </div>
     </div>
   );
 }
 
 function GachaPage() {
   const [slots, setSlots]           = useState(Array(5).fill(null));
-  const [legendCard, setLegendCard] = useState(null);
-  const [pulling, setPulling]       = useState(false);
-  const legendResolveRef            = useRef(null);
+  const [revealCard, setRevealCard] = useState(null); // 현재 연출 중인 카드
+  const [busy, setBusy]             = useState(false);
+  const resolveRef                  = useRef(null);
 
-  // 레전드 전광판을 클릭/자동으로 닫을 때 호출
-  function onLegendComplete() {
-    if (legendResolveRef.current) {
-      legendResolveRef.current();
-      legendResolveRef.current = null;
-    }
+  function onRevealComplete() {
+    resolveRef.current?.();
+    resolveRef.current = null;
   }
 
-  async function handlePull() {
-    if (pulling) return;
-    setPulling(true);
-    setLegendCard(null);
+  // 단건 연출 → 슬롯에 배치
+  async function doReveal(card, index) {
+    setRevealCard(card);
+    await new Promise(resolve => { resolveRef.current = resolve; });
+    setRevealCard(null);
+    await sleep(180);
+    setSlots(prev => { const s = [...prev]; s[index] = card; return s; });
+    await sleep(200);
+  }
 
-    const cards = pull();
-    // 슬롯 초기화
+  // 개별 슬롯 클릭
+  async function handleSlotClick(index) {
+    if (busy) return;
+    setBusy(true);
+    await doReveal(pullOne(ROLES[index]), index);
+    setBusy(false);
+  }
+
+  // 전체 뽑기
+  async function handlePullAll() {
+    if (busy) return;
+    setBusy(true);
     setSlots(Array(5).fill(null));
-
+    const cards = pull();
     for (let i = 0; i < cards.length; i++) {
-      const card = cards[i];
-
-      if (card.rarity === 'legend') {
-        // 전광판 연출 → 유저가 닫을 때까지 대기
-        setLegendCard(card);
-        await new Promise(resolve => { legendResolveRef.current = resolve; });
-        setLegendCard(null);
-        // 전광판 닫힌 후 슬롯에 카드 추가
-        await sleep(300);
-        setSlots(prev => { const s = [...prev]; s[i] = card; return s; });
-        await sleep(500);
-      } else {
-        await sleep(150);
-        setSlots(prev => { const s = [...prev]; s[i] = card; return s; });
-        await sleep(360);
-      }
+      await doReveal(cards[i], i);
     }
-
-    setPulling(false);
+    setBusy(false);
   }
 
   const allRevealed = slots.every(Boolean);
 
   return (
     <div className="gacha-page">
-      {legendCard && (
-        <LegendReveal player={legendCard} onComplete={onLegendComplete} />
+      {revealCard && (
+        <LegendReveal player={revealCard} onComplete={onRevealComplete} />
       )}
 
       <header className="site-header">
@@ -87,7 +102,7 @@ function GachaPage() {
       <main className="gacha-main">
         <div className="hero-text">
           <h1>Build Your Dream<br /><span className="accent">Valorant</span> Team</h1>
-          <p>포지션별 랜덤 프로 선수 카드 · Legend 25% · Rare 45%</p>
+          <p>포지션 카드를 클릭하여 선수를 뽑거나, 전체 뽑기를 사용하세요</p>
         </div>
 
         <div className="slots-wrapper">
@@ -97,24 +112,24 @@ function GachaPage() {
           <div className="cards-row">
             {ROLES.map((role, i) =>
               slots[i]
-                ? <PlayerCard key={`${role}-filled`} player={slots[i]} delay={0} />
-                : <EmptySlot key={role} role={role} />
+                ? <FilledSlot key={role} card={slots[i]} onClick={() => handleSlotClick(i)} disabled={busy} />
+                : <EmptySlot  key={role} role={role}     onClick={() => handleSlotClick(i)} disabled={busy} />
             )}
           </div>
         </div>
 
         <div className="pull-actions">
           <button
-            className={`btn-summon ${pulling ? 'loading' : ''}`}
-            onClick={handlePull}
-            disabled={pulling}
+            className={`btn-summon${busy ? ' loading' : ''}`}
+            onClick={handlePullAll}
+            disabled={busy}
           >
             <span className="btn-icon">⚡</span>
-            {pulling ? 'SUMMONING...' : 'SUMMON ALL'}
+            {busy ? 'SUMMONING...' : 'SUMMON ALL'}
           </button>
-          {allRevealed && !pulling && (
-            <button className="btn-reset" onClick={handlePull}>
-              다시 뽑기
+          {allRevealed && !busy && (
+            <button className="btn-reset" onClick={handlePullAll}>
+              전체 다시 뽑기
             </button>
           )}
         </div>

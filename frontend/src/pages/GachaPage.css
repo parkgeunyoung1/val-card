@@ -135,14 +135,50 @@
   justify-content: center;
   gap: 8px;
   flex-shrink: 0;
-  transition: border-color 0.25s, background 0.25s;
-  cursor: default;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  cursor: pointer;
 }
 .empty-slot:hover {
-  border-color: rgba(255, 70, 85, 0.2);
-  background: rgba(255, 70, 85, 0.03);
+  border-color: rgba(255, 70, 85, 0.35);
+  background: rgba(255, 70, 85, 0.05);
+  transform: translateY(-3px);
 }
+.empty-slot:active { transform: translateY(0) scale(0.98); }
+.empty-slot.disabled { cursor: not-allowed; opacity: 0.5; transform: none; }
 .empty-slot:hover .corner { width: 18px; height: 18px; }
+
+/* ── Filled slot (재뽑기 오버레이) ─────────────────── */
+.filled-slot {
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.filled-slot.disabled { cursor: not-allowed; }
+
+.reroll-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.filled-slot:not(.disabled):hover .reroll-overlay { opacity: 1; }
+
+.reroll-icon { font-size: 28px; }
+.reroll-text {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+}
 
 .empty-slot .corner {
   position: absolute;
