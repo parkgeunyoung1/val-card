@@ -30,11 +30,10 @@ const RARITY_COLOR = { legend:'#f59e0b', rare:'#60a5fa', common:'#94a3b8' };
 
 function buildSteps(player) {
   return [
-    { label: 'TOURNAMENT',  value: TEAM_REGION[player.team] || 'VCT',                       xl: false },
-    { label: 'TEAM',        value: player.team,                                               xl: false },
+    { label: 'TEAM',        value: player.team,                                                           xl: false },
     { label: 'NATIONALITY', value: `${FLAG[player.nationality] || ''} ${COUNTRY[player.nationality] || player.nationality}`, xl: false },
-    { label: 'ROLE',        value: `${ROLE_ICON[player.role] || ''} ${player.role}`,         xl: false },
-    { label: null,          value: player.name,                                               xl: true  },
+    { label: 'ROLE',        value: `${ROLE_ICON[player.role] || ''} ${player.role}`,                      xl: false },
+    { label: null,          value: player.name,                                                           xl: true  },
   ];
 }
 
@@ -75,6 +74,16 @@ function LegendReveal({ player, onComplete }) {
     onComplete();
   }
 
+  function handleSkip() {
+    if (showCard) {
+      complete();
+    } else {
+      // 텍스트 중 → 카드로 바로 점프
+      setShowCard(true);
+      setTimeout(complete, 3000);
+    }
+  }
+
   // 시작 딜레이
   useEffect(() => {
     const t = setTimeout(() => setStepIndex(0), 350);
@@ -111,11 +120,16 @@ function LegendReveal({ player, onComplete }) {
   const step = stepIndex >= 0 ? steps[stepIndex] : null;
 
   return (
-    <div className="legend-overlay" onClick={complete}>
+    <div className="legend-overlay" onClick={handleSkip}>
       {/* 배경 */}
       <div className="beam" style={{ '--bcolor': color }} />
       <Particles color={color} />
       {flash && <div className="step-flash" />}
+
+      {/* SKIP 버튼 */}
+      <button className="skip-btn" onClick={e => { e.stopPropagation(); handleSkip(); }}>
+        SKIP ▶
+      </button>
 
       {/* 순차 텍스트 */}
       {!showCard && step && (
@@ -145,7 +159,7 @@ function LegendReveal({ player, onComplete }) {
         </div>
       )}
 
-      <p className="skip-hint">{showCard ? '클릭하여 계속' : '클릭하여 건너뛰기'}</p>
+      <p className="skip-hint">{showCard ? '클릭하여 계속' : '화면을 클릭하면 카드로 건너뜁니다'}</p>
     </div>
   );
 }

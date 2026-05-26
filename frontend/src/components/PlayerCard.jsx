@@ -3,33 +3,33 @@ import './PlayerCard.css';
 const RARITY_LABELS = { legend: 'LEGEND', rare: 'RARE', common: 'COMMON' };
 
 const FLAG_EMOJIS = {
-  CA: '🇨🇦', US: '🇺🇸', BR: '🇧🇷', TR: '🇹🇷', BE: '🇧🇪',
-  RU: '🇷🇺', FI: '🇫🇮', FR: '🇫🇷', UZ: '🇺🇿', AR: '🇦🇷',
-  CL: '🇨🇱', JP: '🇯🇵', KR: '🇰🇷', IT: '🇮🇹', ES: '🇪🇸',
-  UA: '🇺🇦', GB: '🇬🇧',
+  CA:'🇨🇦', US:'🇺🇸', BR:'🇧🇷', TR:'🇹🇷', BE:'🇧🇪', RU:'🇷🇺',
+  FI:'🇫🇮', FR:'🇫🇷', UZ:'🇺🇿', AR:'🇦🇷', CL:'🇨🇱', JP:'🇯🇵',
+  KR:'🇰🇷', IT:'🇮🇹', ES:'🇪🇸', UA:'🇺🇦', GB:'🇬🇧',
 };
 
-function StatBar({ label, value }) {
+const ROLE_ICONS = {
+  DUELIST:'⚔️', INITIATOR:'💡', FLEX:'🔄', SENTINEL:'🛡️', CONTROLLER:'🌫️',
+};
+
+function ChemDots({ level = 0 }) {
   return (
-    <div className="stat-row">
-      <span className="stat-label">{label}</span>
-      <div className="stat-bar-bg">
-        <div className="stat-bar-fill" style={{ width: `${value}%` }} />
-      </div>
-      <span className="stat-value">{value}</span>
+    <div className="chem-dots">
+      {[0, 1, 2].map(i => (
+        <span key={i} className={`chem-dot ${i < level ? 'filled' : ''}`} />
+      ))}
     </div>
   );
 }
 
-function PlayerCard({ player, delay = 0 }) {
-  const { name, team, nationality, rarity, stats } = player;
+function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
+  const { name, team, nationality, rarity, role } = player;
 
   return (
     <div
       className={`player-card rarity-${rarity}`}
       style={{ animationDelay: `${delay}ms` }}
     >
-      {/* corner brackets */}
       <span className="corner tl" />
       <span className="corner tr" />
       <span className="corner bl" />
@@ -49,19 +49,15 @@ function PlayerCard({ player, delay = 0 }) {
           <span>{FLAG_EMOJIS[nationality] || ''}</span>
           <span className="team">{team}</span>
         </div>
+        <div className="role-tag">
+          {ROLE_ICONS[role]} {role}
+        </div>
         <div className={`rarity-badge rarity-${rarity}`}>
           {RARITY_LABELS[rarity]}
         </div>
-
-        {stats && (
-          <div className="stats">
-            <StatBar label="RTG" value={stats.rating} />
-            <StatBar label="AIM" value={stats.aim} />
-            <StatBar label="IQ"  value={stats.game_sense} />
-            <StatBar label="CLT" value={stats.clutch} />
-          </div>
-        )}
       </div>
+
+      <ChemDots level={chemLevel} />
     </div>
   );
 }

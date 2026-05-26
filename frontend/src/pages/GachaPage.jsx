@@ -1,19 +1,79 @@
 import { useState, useRef } from 'react';
 import { pull, pullOne } from '../utils/gacha';
+import { calcChemistry } from '../utils/chemistry';
 import PlayerCard from '../components/PlayerCard';
 import LegendReveal from '../components/LegendReveal';
 import './GachaPage.css';
 
 const ROLES = ['DUELIST', 'INITIATOR', 'FLEX', 'SENTINEL', 'CONTROLLER'];
+const CARD_W = 168, GAP = 12, STEP = CARD_W + GAP;
+const centerX = i => i * STEP + CARD_W / 2;
+const SVG_W = 5 * CARD_W + 4 * GAP;
+
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+const LINE_COLOR = { team: '#f59e0b', nationality: '#60a5fa', region: '#475569' };
+const LINE_W     = { team: 2.5,       nationality: 2,         region: 1.5 };
+
+const GRADE_COLOR = { S:'#f59e0b', A:'#a78bfa', B:'#60a5fa', C:'#94a3b8', D:'#475569' };
+
+/* ── SVG 연결선 ──────────────────────────────────── */
+function ChemLines({ connections }) {
+  if (!connections?.length) return null;
+  return (
+    <svg width={SVG_W} height={56} className="chem-svg">
+      {connections.map(({ from, to, type }, idx) => {
+        const x1 = centerX(from), x2 = centerX(to);
+        const mx = (x1 + x2) / 2;
+        const depth = (to - from) * 13;
+        return (
+          <path
+            key={idx}
+            d={`M${x1} 0 Q${mx} ${depth} ${x2} 0`}
+            fill="none"
+            stroke={LINE_COLOR[type]}
+            strokeWidth={LINE_W[type]}
+            strokeOpacity={0.7}
+            strokeLinecap="round"
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
+/* ── 케미스트리 점수 + 뱃지 ──────────────────────── */
+function ChemPanel({ chem }) {
+  const { total, grade, badges } = chem;
+  const gradeColor = GRADE_COLOR[grade] || '#fff';
+
+  return (
+    <div className="chem-panel">
+      <div className="chem-score">
+        <span className="chem-total">{total}</span>
+        <span className="chem-max">/ 15</span>
+        <span className="chem-bar-wrap">
+          <span className="chem-bar-fill" style={{ width: `${(total / 15) * 100}%` }} />
+        </span>
+        <span className="chem-grade" style={{ color: gradeColor }}>{grade}</span>
+      </div>
+      {badges.length > 0 && (
+        <div className="chem-badges">
+          {badges.map((b, i) => (
+            <span key={i} className={`chem-badge type-${b.type}`}>
+              {b.icon} {b.label} ×{b.count}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── 빈 슬롯 ─────────────────────────────────────── */
 function EmptySlot({ role, onClick, disabled }) {
   return (
-    <div
-      className={`empty-slot${disabled ? ' disabled' : ''}`}
-      onClick={disabled ? undefined : onClick}
-      title={`${role} 카드 뽑기`}
-    >
+    <div className={`empty-slot${disabled ? ' disabled' : ''}`} onClick={disabled ? undefined : onClick}>
       <span className="corner tl" /><span className="corner tr" />
       <span className="corner bl" /><span className="corner br" />
       <div className="slot-question">?</div>
@@ -23,14 +83,11 @@ function EmptySlot({ role, onClick, disabled }) {
   );
 }
 
-function FilledSlot({ card, onClick, disabled }) {
+/* ── 채워진 슬롯 ─────────────────────────────────── */
+function FilledSlot({ card, chemLevel, onClick, disabled }) {
   return (
-    <div
-      className={`filled-slot${disabled ? ' disabled' : ''}`}
-      onClick={disabled ? undefined : onClick}
-      title="클릭하여 다시 뽑기"
-    >
-      <PlayerCard player={card} delay={0} />
+    <div className={`filled-slot${disabled ? ' disabled' : ''}`} onClick={disabled ? undefined : onClick}>
+      <PlayerCard player={card} delay={0} chemLevel={chemLevel} />
       <div className="reroll-overlay">
         <span className="reroll-icon">🔄</span>
         <span className="reroll-text">다시 뽑기</span>
@@ -39,28 +96,32 @@ function FilledSlot({ card, onClick, disabled }) {
   );
 }
 
+/* ── 메인 ────────────────────────────────────────── */
 function GachaPage() {
   const [slots, setSlots]           = useState(Array(5).fill(null));
-  const [revealCard, setRevealCard] = useState(null); // 현재 연출 중인 카드
+  const [revealCard, setRevealCard] = useState(null);
   const [busy, setBusy]             = useState(false);
   const resolveRef                  = useRef(null);
+
+  const chem     = slots.some(Boolean) ? calcChemistry(slots) : null;
+  const allFilled = slots.every(Boolean);
 
   function onRevealComplete() {
     resolveRef.current?.();
     resolveRef.current = null;
   }
 
-  // 단건 연출 → 슬롯에 배치
   async function doReveal(card, index) {
-    setRevealCard(card);
-    await new Promise(resolve => { resolveRef.current = resolve; });
-    setRevealCard(null);
-    await sleep(180);
+    if (card.rarity === 'legend') {
+      setRevealCard(card);
+      await new Promise(resolve => { resolveRef.current = resolve; });
+      setRevealCard(null);
+      await sleep(180);
+    }
     setSlots(prev => { const s = [...prev]; s[index] = card; return s; });
     await sleep(200);
   }
 
-  // 개별 슬롯 클릭
   async function handleSlotClick(index) {
     if (busy) return;
     setBusy(true);
@@ -68,25 +129,18 @@ function GachaPage() {
     setBusy(false);
   }
 
-  // 전체 뽑기
   async function handlePullAll() {
     if (busy) return;
     setBusy(true);
     setSlots(Array(5).fill(null));
     const cards = pull();
-    for (let i = 0; i < cards.length; i++) {
-      await doReveal(cards[i], i);
-    }
+    for (let i = 0; i < cards.length; i++) await doReveal(cards[i], i);
     setBusy(false);
   }
 
-  const allRevealed = slots.every(Boolean);
-
   return (
     <div className="gacha-page">
-      {revealCard && (
-        <LegendReveal player={revealCard} onComplete={onRevealComplete} />
-      )}
+      {revealCard && <LegendReveal player={revealCard} onComplete={onRevealComplete} />}
 
       <header className="site-header">
         <div className="header-logo">
@@ -109,13 +163,31 @@ function GachaPage() {
           <div className="role-labels">
             {ROLES.map(r => <div key={r} className="role-label">{r}</div>)}
           </div>
+
           <div className="cards-row">
             {ROLES.map((role, i) =>
               slots[i]
-                ? <FilledSlot key={role} card={slots[i]} onClick={() => handleSlotClick(i)} disabled={busy} />
-                : <EmptySlot  key={role} role={role}     onClick={() => handleSlotClick(i)} disabled={busy} />
+                ? <FilledSlot
+                    key={role}
+                    card={slots[i]}
+                    chemLevel={chem?.playerChem[i] ?? 0}
+                    onClick={() => handleSlotClick(i)}
+                    disabled={busy}
+                  />
+                : <EmptySlot
+                    key={role}
+                    role={role}
+                    onClick={() => handleSlotClick(i)}
+                    disabled={busy}
+                  />
             )}
           </div>
+
+          {/* ── 케미스트리 연결선 ── */}
+          {chem && <ChemLines connections={chem.connections} />}
+
+          {/* ── 케미스트리 점수 + 뱃지 ── */}
+          {allFilled && chem && <ChemPanel chem={chem} />}
         </div>
 
         <div className="pull-actions">
@@ -127,10 +199,8 @@ function GachaPage() {
             <span className="btn-icon">⚡</span>
             {busy ? 'SUMMONING...' : 'SUMMON ALL'}
           </button>
-          {allRevealed && !busy && (
-            <button className="btn-reset" onClick={handlePullAll}>
-              전체 다시 뽑기
-            </button>
+          {allFilled && !busy && (
+            <button className="btn-reset" onClick={handlePullAll}>전체 다시 뽑기</button>
           )}
         </div>
 
