@@ -40,10 +40,18 @@ export const TEAM_LOGOS = {
 
 // 시즌 ID → 리그/토너먼트 로고
 export const LEAGUE_LOGOS = {
+  'americas-kickoff-25':    '/logos/leagues/vct-americas.png',
+  'americas-stage1-25':     '/logos/leagues/vct-americas.png',
+  'americas-stage2-25':     '/logos/leagues/vct-americas.png',
+  'emea-kickoff-25':        '/logos/leagues/vct-emea.png',
+  'emea-stage1-25':         '/logos/leagues/vct-emea.png',
+  'emea-stage2-25':         '/logos/leagues/vct-emea.png',
+  'pacific-kickoff-25':     '/logos/leagues/vct-pacific.png',
+  'pacific-stage1-25':      '/logos/leagues/vct-pacific.png',
+  'pacific-stage2-25':      '/logos/leagues/vct-pacific.png',
+  'masters-bangkok-25':     '/logos/leagues/vct-masters-2025.png',
+  'masters-toronto-25':     '/logos/leagues/vct-masters-2025.png',
   'champions-paris-25':   '/logos/leagues/vct-champions-2025.png',
-  'masters-toronto-25':   '/logos/leagues/vct-masters-2025.png',
-  'pacific-stage2-25':    '/logos/leagues/vct-pacific.png',
-  'americas-stage2-25':   '/logos/leagues/vct-americas.png',
 };
 
 // 팀 소속 권역

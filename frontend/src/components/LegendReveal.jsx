@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import PlayerCard from './PlayerCard';
+import { TEAM_LOGOS, LEAGUE_LOGOS } from '../data/logos';
 import './LegendReveal.css';
 
 const TEAM_REGION = {
@@ -12,33 +13,19 @@ const TEAM_REGION = {
   'Guild Esports': 'VCT EMEA',
   'ZETA DIVISION': 'VCT Pacific', 'DRX': 'VCT Pacific',
 };
-const COUNTRY = {
-  CA:'Canada', US:'United States', BR:'Brazil', TR:'Turkey',
-  BE:'Belgium', RU:'Russia', FI:'Finland', FR:'France',
-  UZ:'Uzbekistan', AR:'Argentina', CL:'Chile', JP:'Japan',
-  KR:'South Korea', IT:'Italy', ES:'Spain', UA:'Ukraine', GB:'United Kingdom',
-};
-const FLAG = {
-  CA:'🇨🇦', US:'🇺🇸', BR:'🇧🇷', TR:'🇹🇷', BE:'🇧🇪', RU:'🇷🇺',
-  FI:'🇫🇮', FR:'🇫🇷', UZ:'🇺🇿', AR:'🇦🇷', CL:'🇨🇱', JP:'🇯🇵',
-  KR:'🇰🇷', IT:'🇮🇹', ES:'🇪🇸', UA:'🇺🇦', GB:'🇬🇧',
-};
-const ROLE_ICON = {
-  DUELIST:'⚔️', INITIATOR:'💡', FLEX:'🔄', SENTINEL:'🛡️', CONTROLLER:'🌫️',
-};
 const RARITY_COLOR = { legend:'#f59e0b', rare:'#60a5fa', common:'#94a3b8' };
 
 function buildSteps(player) {
   const steps = [];
-  if (player.seasonBadge && player.seasonLabel) {
-    steps.push({ label: 'SEASON', value: `${player.seasonBadge} ${player.seasonLabel}`, xl: false });
+  if (player.seasonId && (LEAGUE_LOGOS[player.seasonId] || player.seasonLabel)) {
+    steps.push({ type: 'season', label: player.seasonLabel, image: LEAGUE_LOGOS[player.seasonId] || null, fallback: player.seasonBadge || '' });
   }
-  steps.push(
-    { label: 'TEAM',        value: player.team,                                                                       xl: false },
-    { label: 'NATIONALITY', value: `${FLAG[player.nationality] || ''} ${COUNTRY[player.nationality] || player.nationality}`, xl: false },
-    { label: 'ROLE',        value: `${ROLE_ICON[player.role] || ''} ${player.role}`,                                  xl: false },
-    { label: null,          value: player.name,                                                                       xl: true  },
-  );
+  if (player.team && (TEAM_LOGOS[player.team] || player.team)) {
+    steps.push({ type: 'team', label: player.team, image: TEAM_LOGOS[player.team] || null, fallback: player.team });
+  }
+  if (player.role) {
+    steps.push({ type: 'role', label: 'POSITION', value: player.role, xl: true });
+  }
   return steps;
 }
 
@@ -124,6 +111,34 @@ function LegendReveal({ player, onComplete }) {
 
   const step = stepIndex >= 0 ? steps[stepIndex] : null;
 
+  function renderStep() {
+    if (!step) return null;
+
+    if (step.type === 'role') {
+      return (
+        <div className={`reveal-step ${phase === 'in' ? 'entering' : 'exiting'} xl`}>
+          <span className="step-label">{step.label}</span>
+          <span className="step-value reveal-role" style={{ color, textShadow: `0 0 32px ${color}88` }}>
+            {step.value}
+          </span>
+        </div>
+      );
+    }
+
+    return (
+      <div className={`reveal-step ${phase === 'in' ? 'entering' : 'exiting'}`}>
+        <div className="reveal-visual">
+          {step.image ? (
+            <img src={step.image} alt={step.label} className="reveal-logo" />
+          ) : (
+            <span className="reveal-fallback" style={{ color, textShadow: `0 0 32px ${color}88` }}>{step.fallback}</span>
+          )}
+        </div>
+        <span className="step-label">{step.type === 'season' ? 'SEASON' : 'TEAM'}</span>
+      </div>
+    );
+  }
+
   return (
     <div className="legend-overlay" onClick={handleSkip}>
       {/* 배경 */}
@@ -136,25 +151,7 @@ function LegendReveal({ player, onComplete }) {
         SKIP ▶
       </button>
 
-      {/* 순차 텍스트 */}
-      {!showCard && step && (
-        phase === 'in'
-          ? (
-            <div key={`${stepIndex}-in`} className={`reveal-step entering${step.xl ? ' xl' : ''}`}>
-              {step.label && <span className="step-label">{step.label}</span>}
-              <span className="step-value" style={{ color, textShadow: `0 0 32px ${color}88` }}>
-                {step.value}
-              </span>
-            </div>
-          ) : (
-            <div key={`${stepIndex}-out`} className={`reveal-step exiting${step.xl ? ' xl' : ''}`}>
-              {step.label && <span className="step-label">{step.label}</span>}
-              <span className="step-value" style={{ color, textShadow: `0 0 32px ${color}88` }}>
-                {step.value}
-              </span>
-            </div>
-          )
-      )}
+      {!showCard && step && renderStep()}
 
       {/* 카드 등장 */}
       {showCard && (

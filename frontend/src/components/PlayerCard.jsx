@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { TEAM_LOGOS, LEAGUE_LOGOS } from '../data/logos';
 import './PlayerCard.css';
 
@@ -9,54 +8,6 @@ const FLAG_EMOJIS = {
   FI:'🇫🇮', FR:'🇫🇷', UZ:'🇺🇿', AR:'🇦🇷', CL:'🇨🇱', JP:'🇯🇵',
   KR:'🇰🇷', IT:'🇮🇹', ES:'🇪🇸', UA:'🇺🇦', GB:'🇬🇧',
 };
-
-const ROLE_ICONS = {
-  DUELIST:'⚔️', INITIATOR:'💡', FLEX:'🔄', SENTINEL:'🛡️', CONTROLLER:'🌫️',
-};
-
-function TeamAvatar({ name, team, rarity }) {
-  const [imgFailed, setImgFailed] = useState(false);
-  const logoUrl = TEAM_LOGOS[team];
-
-  if (logoUrl && !imgFailed) {
-    return (
-      <div className={`avatar rarity-${rarity}`}>
-        <img
-          src={logoUrl}
-          alt={team}
-          className="avatar-logo"
-          onError={() => setImgFailed(true)}
-        />
-      </div>
-    );
-  }
-  return (
-    <div className={`avatar rarity-${rarity}`}>
-      {name.charAt(0).toUpperCase()}
-    </div>
-  );
-}
-
-function LeagueBadge({ seasonId, seasonBadge, seasonLabel, seasonColor }) {
-  const [imgFailed, setImgFailed] = useState(false);
-  const logoUrl = LEAGUE_LOGOS[seasonId];
-
-  return (
-    <div className="season-badge" style={{ '--season-color': seasonColor || '#64748b' }}>
-      {logoUrl && !imgFailed ? (
-        <img
-          src={logoUrl}
-          alt={seasonLabel}
-          className="season-league-logo"
-          onError={() => setImgFailed(true)}
-        />
-      ) : (
-        <span className="season-badge-icon">{seasonBadge}</span>
-      )}
-      <span className="season-badge-label">{seasonLabel}</span>
-    </div>
-  );
-}
 
 function ChemDots({ level = 0 }) {
   return (
@@ -69,46 +20,56 @@ function ChemDots({ level = 0 }) {
 }
 
 function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
-  const { name, team, nationality, rarity, role, seasonId, seasonLabel, seasonBadge, seasonColor } = player;
+  const { name, team, nationality, rarity, role, seasonId, seasonLabel, seasonBadge, image_url: imageUrl } = player;
+  const teamLogo = TEAM_LOGOS[team];
+  const seasonLogo = LEAGUE_LOGOS[seasonId];
+  const backgroundStyle = imageUrl ? { backgroundImage: `url(${imageUrl})` } : undefined;
 
   return (
     <div
       className={`player-card rarity-${rarity}`}
       style={{ animationDelay: `${delay}ms` }}
     >
+      <div className="player-bg" style={backgroundStyle} aria-hidden />
+      <div className="card-overlay" aria-hidden />
+
       <span className="corner tl" />
       <span className="corner tr" />
       <span className="corner bl" />
       <span className="corner br" />
 
-      <div className={`rarity-bar rarity-${rarity}`} />
+      <div className="rarity-text">{RARITY_LABELS[rarity]}</div>
+
+      <div className="team-mark" aria-label={team}>
+        {teamLogo ? (
+          <img src={teamLogo} alt={team} className="team-logo" />
+        ) : (
+          <span className="team-fallback">{team}</span>
+        )}
+      </div>
+
+      <div className="position-rail">
+        <div className="position-text">{role}</div>
+      </div>
+
+      <div className="card-image-area" aria-hidden>
+        <div className="art-frame" />
+      </div>
+
+      <div className="nationality-mark">{FLAG_EMOJIS[nationality] || nationality}</div>
+
+      <div className="player-name">{name}</div>
 
       {seasonLabel && (
-        <LeagueBadge
-          seasonId={seasonId}
-          seasonBadge={seasonBadge}
-          seasonLabel={seasonLabel}
-          seasonColor={seasonColor}
-        />
+        <div className="season-mark">
+          {seasonLogo ? (
+            <img src={seasonLogo} alt={seasonLabel} className="season-logo" />
+          ) : (
+            <span className="season-fallback">{seasonBadge}</span>
+          )}
+          <span className="season-text">{seasonLabel}</span>
+        </div>
       )}
-
-      <div className="card-image-area">
-        <TeamAvatar name={name} team={team} rarity={rarity} />
-      </div>
-
-      <div className="card-body">
-        <div className="player-name">{name}</div>
-        <div className="player-meta">
-          <span>{FLAG_EMOJIS[nationality] || ''}</span>
-          <span className="team">{team}</span>
-        </div>
-        <div className="role-tag">
-          {ROLE_ICONS[role]} {role}
-        </div>
-        <div className={`rarity-badge rarity-${rarity}`}>
-          {RARITY_LABELS[rarity]}
-        </div>
-      </div>
 
       <ChemDots level={chemLevel} />
     </div>

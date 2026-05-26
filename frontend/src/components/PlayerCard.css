@@ -2,138 +2,250 @@
   position: relative;
   width: 168px;
   height: 256px;
-  border-radius: 12px;
-  background: linear-gradient(160deg, #1a2535, #0d1520);
-  border: 1px solid #2a3a4a;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 12px 10px 10px;
   flex-shrink: 0;
-  transition: transform 0.2s, box-shadow 0.2s;
+  color: #f8fafc;
+  background:
+    linear-gradient(180deg, rgba(7, 12, 20, 0.96), rgba(10, 16, 28, 0.98)),
+    radial-gradient(circle at 50% 24%, rgba(148, 163, 184, 0.08), transparent 42%);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   animation: cardReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.player-card:hover { transform: translateY(-5px) scale(1.02); }
+
+.player-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(148, 163, 184, 0.1), transparent 42%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.45));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.95;
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(2, 6, 23, 0.24), rgba(2, 6, 23, 0.08) 28%, rgba(2, 6, 23, 0.52) 76%, rgba(2, 6, 23, 0.88)),
+    linear-gradient(90deg, rgba(2, 6, 23, 0.12), transparent 40%, rgba(2, 6, 23, 0.2));
+}
+
+.player-card:hover {
+  transform: translateY(-5px) scale(1.02);
+}
 
 @keyframes cardReveal {
   from { opacity: 0; transform: translateY(20px) scale(0.9); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* ── 등급 ──────────────────────────────── */
 .player-card.rarity-legend {
-  border-color: rgba(245,158,11,0.5);
-  box-shadow: 0 0 22px rgba(245,158,11,0.2), inset 0 0 30px rgba(245,158,11,0.04);
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 16px 38px rgba(245, 158, 11, 0.18);
 }
-.player-card.rarity-rare {
-  border-color: rgba(59,130,246,0.4);
-  box-shadow: 0 0 16px rgba(59,130,246,0.15);
-}
-.player-card.rarity-common { border-color: #2a3a4a; }
 
-/* ── 코너 브래킷 ────────────────────────── */
+.player-card.rarity-rare {
+  border-color: rgba(96, 165, 250, 0.3);
+  box-shadow: 0 16px 32px rgba(59, 130, 246, 0.16);
+}
+
+.player-card.rarity-common {
+  border-color: rgba(148, 163, 184, 0.18);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+}
+
 .corner {
   position: absolute;
-  width: 12px; height: 12px;
+  width: 12px;
+  height: 12px;
   border-style: solid;
-  transition: width .2s, height .2s;
+  border-color: rgba(226, 232, 240, 0.42);
+  transition: width 0.2s, height 0.2s;
+  z-index: 3;
 }
-.player-card:hover .corner { width: 16px; height: 16px; }
-.rarity-legend .corner { border-color: rgba(245,158,11,0.7); }
-.rarity-rare   .corner { border-color: rgba(59,130,246,0.6); }
-.rarity-common .corner { border-color: rgba(100,116,139,0.35); }
-.corner.tl { top:7px;    left:7px;    border-width:2px 0 0 2px; }
-.corner.tr { top:7px;    right:7px;   border-width:2px 2px 0 0; }
-.corner.bl { bottom:7px; left:7px;    border-width:0 0 2px 2px; }
-.corner.br { bottom:7px; right:7px;   border-width:0 2px 2px 0; }
 
-/* ── 상단 컬러바 ────────────────────────── */
-.rarity-bar { position:absolute; top:0; left:0; right:0; height:3px; border-radius:12px 12px 0 0; }
-.rarity-bar.rarity-legend { background: linear-gradient(90deg,#d97706,#f59e0b,#d97706); }
-.rarity-bar.rarity-rare   { background: linear-gradient(90deg,#1d4ed8,#3b82f6,#1d4ed8); }
-.rarity-bar.rarity-common { background: #374151; }
+.player-card:hover .corner {
+  width: 16px;
+  height: 16px;
+}
 
-/* ── 시즌 뱃지 ──────────────────────────── */
-.season-badge {
+.corner.tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+.corner.tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+.corner.bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+.corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+.rarity-text {
+  position: absolute;
+  top: 18px;
+  left: 14px;
+  z-index: 2;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.rarity-legend .rarity-text { color: #fbbf24; }
+.rarity-rare .rarity-text { color: #93c5fd; }
+.rarity-common .rarity-text { color: #cbd5e1; }
+
+.team-mark {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin-top: 14px;
-  padding: 2px 8px 2px 4px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  justify-content: center;
+  z-index: 2;
 }
-.season-league-logo {
-  width: 14px;
-  height: 14px;
+
+.team-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.12));
+}
+
+.team-fallback {
+  font-size: 8px;
+  font-weight: 800;
+  text-align: right;
+  line-height: 1.1;
+  color: #e2e8f0;
+}
+
+.card-image-area {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.art-frame {
+  position: absolute;
+  inset: 14px 16px 14px 16px;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(148, 163, 184, 0.08), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+  border: 1px dashed rgba(148, 163, 184, 0.12);
+}
+
+.position-rail {
+  position: absolute;
+  top: 76px;
+  right: 4px;
+  width: 24px;
+  height: 126px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.position-text {
+  display: block;
+  width: 126px;
+  text-align: center;
+  transform: rotate(90deg);
+  transform-origin: center;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.88);
+}
+
+.nationality-mark {
+  position: absolute;
+  left: 14px;
+  bottom: 50px;
+  z-index: 2;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.player-name {
+  position: absolute;
+  left: 42px;
+  right: 28px;
+  bottom: 48px;
+  z-index: 2;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 0.2px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #f8fafc;
+}
+
+.season-mark {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 20px;
+  text-align: center;
+}
+
+.season-logo {
+  width: 15px;
+  height: 15px;
   object-fit: contain;
   flex-shrink: 0;
 }
-.season-badge-icon { font-size: 9px; line-height: 1; }
-.season-badge-label {
-  font-size: 8px;
+
+.season-fallback {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.season-text {
+  font-size: 9px;
   font-weight: 800;
-  letter-spacing: 0.5px;
-  color: var(--season-color, #94a3b8);
+  letter-spacing: 0.6px;
+  color: #cbd5e1;
+  text-align: center;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* ── 팀 로고 ─────────────────────────────── */
-.avatar-logo {
-  width: 56px;
-  height: 56px;
-  object-fit: contain;
-}
-
-/* ── 아바타 ─────────────────────────────── */
-.card-image-area { margin: 6px 0 8px; }
-.avatar {
-  width: 84px; height: 84px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 34px; font-weight: 900; color: #fff;
-  border: 2px solid;
-}
-.avatar.rarity-legend { background:linear-gradient(135deg,#78350f,#b45309); border-color:#f59e0b; }
-.avatar.rarity-rare   { background:linear-gradient(135deg,#1e3a5f,#1d4ed8); border-color:#3b82f6; }
-.avatar.rarity-common { background:linear-gradient(135deg,#1f2937,#374151); border-color:#4b5563; }
-
-/* ── 카드 본문 ──────────────────────────── */
-.card-body { display:flex; flex-direction:column; align-items:center; gap:4px; width:100%; }
-
-.player-name { font-size:15px; font-weight:800; color:#f1f5f9; letter-spacing:.5px; text-align:center; }
-
-.player-meta { display:flex; align-items:center; gap:5px; font-size:11px; color:#64748b; }
-.team { color:#94a3b8; font-weight:600; }
-
-.role-tag { font-size:10px; color:#475569; font-weight:600; letter-spacing:.5px; }
-
-.rarity-badge {
-  font-size:8px; font-weight:800; letter-spacing:2px;
-  padding:2px 10px; border-radius:20px; margin-top:2px;
-}
-.rarity-badge.rarity-legend { background:rgba(245,158,11,.15); color:#f59e0b; border:1px solid rgba(245,158,11,.3); }
-.rarity-badge.rarity-rare   { background:rgba(59,130,246,.15);  color:#60a5fa; border:1px solid rgba(59,130,246,.3); }
-.rarity-badge.rarity-common { background:rgba(75,85,99,.2);     color:#9ca3af; border:1px solid rgba(75,85,99,.35); }
-
-/* ── 케미스트리 점수 (하단 3점) ─────────── */
 .chem-dots {
+  position: absolute;
+  top: 20px;
+  left: 76px;
   display: flex;
-  gap: 5px;
-  margin-top: auto;
-  padding-top: 8px;
+  gap: 4px;
+  z-index: 2;
 }
+
 .chem-dot {
-  width: 8px; height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #1e293b;
   border: 1px solid #334155;
-  transition: background .3s, box-shadow .3s;
+  transition: background 0.3s, box-shadow 0.3s;
 }
+
 .chem-dot.filled {
   background: #22c55e;
   border-color: #16a34a;
-  box-shadow: 0 0 6px rgba(34,197,94,.6);
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
 }

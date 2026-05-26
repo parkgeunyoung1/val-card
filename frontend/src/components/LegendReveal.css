@@ -140,6 +140,32 @@
   letter-spacing: 4px;
 }
 
+.reveal-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(52vw, 320px);
+  height: min(52vw, 320px);
+}
+
+.reveal-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 28px rgba(255, 255, 255, 0.14));
+}
+
+.reveal-fallback {
+  font-size: clamp(36px, 7vw, 60px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1;
+}
+
+.reveal-role {
+  letter-spacing: 8px;
+}
+
 /* ── 카드 등장 ───────────────────────────────────── */
 .card-stage {
   position: relative;
