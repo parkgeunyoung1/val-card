@@ -36,23 +36,118 @@ export const TEAM_LOGOS = {
   'RRQ':             '/logos/teams/rrq.png',
   'DFM':             '/logos/teams/dfm.png',
   'Bleed Esports':   '/logos/teams/bleed-esports.png',
+  // ── China ──────────────────────────────────────────
+  'EDward Gaming':      '/logos/teams/edg.png',
+  'Bilibili Gaming':    '/logos/teams/blg.png',
+  'FunPlus Phoenix':    '/logos/teams/fpx.png',
+  'Trace Esports':      '/logos/teams/trace-esports.png',
+  'Dragon Ranger Gaming':'/logos/teams/drg.png',
+  'Nova Esports':       '/logos/teams/nova-esports.png',
+  'Wolves Esports':     '/logos/teams/wolves-esports.png',
+  'All Gamers':         '/logos/teams/all-gamers.png',
+  'Titan Esports Club': '/logos/teams/tec.png',
+  'Xi Lai Gaming':      '/logos/teams/xlg.png',
+  'JD Gaming':          '/logos/teams/jdg.png',
+  'TYLOO':              '/logos/teams/tyloo.png',
+  // ── Aliases (CSV name → same logo) ────────────────
+  'Movistar KOI':       '/logos/teams/koi.png',
+  'Kiwoom DRX':         '/logos/teams/drx.png',
+  'Giants Gaming':      '/logos/teams/giantx.png',
+  // ── Pacific ────────────────────────────────────────
+  'BOOM Esports':       '/logos/teams/boom-esports.png',
+  'Team Secret':        '/logos/teams/team-secret.png',
+  'FULL SENSE':         '/logos/teams/full-sense.png',
+  'Nongshim RedForce':  '/logos/teams/nongshim-redforce.png',
+  'VL':                 '/logos/teams/varrel.png',
+  // ── EMEA ───────────────────────────────────────────
+  'Eternal Fire':       '/logos/teams/eternal-fire.png',
+  'PCIFIC Esports':     '/logos/teams/pcific-esports.png',
+  'ULF Esports':        '/logos/teams/ulf-esports.png',
+  // ── Americas ───────────────────────────────────────
+  'ENVY':               '/logos/teams/envy.png',
+  // ── Intl (Masters/Champions only) ──────────────────
+  'Attacking Soul Esports': '/logos/teams/attacking-soul.png',
 };
 
+const AMERICAS_SEASONS = [
+  'americas-league-23',
+  'americas-kickoff-24',
+  'americas-stage1-24',
+  'americas-stage2-24',
+  'americas-kickoff-25',
+  'americas-stage1-25',
+  'americas-stage2-25',
+  'americas-kickoff-26',
+  'americas-stage1-26',
+  'americas-stage2-26',
+];
+
+const EMEA_SEASONS = [
+  'emea-league-23',
+  'emea-kickoff-24',
+  'emea-stage1-24',
+  'emea-stage2-24',
+  'emea-kickoff-25',
+  'emea-stage1-25',
+  'emea-stage2-25',
+  'emea-kickoff-26',
+  'emea-stage1-26',
+  'emea-stage2-26',
+];
+
+const PACIFIC_SEASONS = [
+  'pacific-league-23',
+  'pacific-kickoff-24',
+  'pacific-stage1-24',
+  'pacific-stage2-24',
+  'pacific-kickoff-25',
+  'pacific-stage1-25',
+  'pacific-stage2-25',
+  'pacific-kickoff-26',
+  'pacific-stage1-26',
+  'pacific-stage2-26',
+];
+
+const CHINA_SEASONS = [
+  'china-kickoff-24',
+  'china-stage1-24',
+  'china-stage2-24',
+  'china-kickoff-25',
+  'china-stage1-25',
+  'china-stage2-25',
+  'china-kickoff-26',
+  'china-stage1-26',
+  'china-stage2-26',
+];
+
+const MASTERS_SEASONS = [
+  'masters-tokyo-23',
+  'masters-madrid-24',
+  'masters-shanghai-24',
+  'masters-bangkok-25',
+  'masters-toronto-25',
+  'masters-santiago-26',
+  'masters-london-26',
+];
+
+const CHAMPIONS_SEASONS = [
+  'champions-los-angeles-23',
+  'champions-seoul-24',
+  'champions-paris-25',
+  'champions-26',
+];
+
 // 시즌 ID → 리그/토너먼트 로고
-export const LEAGUE_LOGOS = {
-  'americas-kickoff-25':    '/logos/leagues/vct-americas.png',
-  'americas-stage1-25':     '/logos/leagues/vct-americas.png',
-  'americas-stage2-25':     '/logos/leagues/vct-americas.png',
-  'emea-kickoff-25':        '/logos/leagues/vct-emea.png',
-  'emea-stage1-25':         '/logos/leagues/vct-emea.png',
-  'emea-stage2-25':         '/logos/leagues/vct-emea.png',
-  'pacific-kickoff-25':     '/logos/leagues/vct-pacific.png',
-  'pacific-stage1-25':      '/logos/leagues/vct-pacific.png',
-  'pacific-stage2-25':      '/logos/leagues/vct-pacific.png',
-  'masters-bangkok-25':     '/logos/leagues/vct-masters-2025.png',
-  'masters-toronto-25':     '/logos/leagues/vct-masters-2025.png',
-  'champions-paris-25':   '/logos/leagues/vct-champions-2025.png',
-};
+export const LEAGUE_LOGOS = Object.fromEntries([
+  ['lock-in-sao-paulo-23', '/logos/leagues/vct-lock-in-23.png'],
+  ...AMERICAS_SEASONS.map((id) => [id, '/logos/leagues/vct-americas.png']),
+  ...EMEA_SEASONS.map((id)    => [id, '/logos/leagues/vct-emea.png']),
+  ...PACIFIC_SEASONS.map((id) => [id, '/logos/leagues/vct-pacific.png']),
+  ...CHINA_SEASONS.map((id)   => [id, '/logos/leagues/vct-china.png']),
+  ...MASTERS_SEASONS.map((id) => [id, '/logos/leagues/vct-masters-2025.png']),
+  ...CHAMPIONS_SEASONS.map((id) => [id, '/logos/leagues/vct-champions-2025.png']),
+  ['masters-bangkok-25', '/logos/leagues/vct-masters-bangkok-25.png'],
+]);
 
 // 팀 소속 권역
 export const TEAM_REGION = {

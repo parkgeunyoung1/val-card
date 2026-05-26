@@ -1,6 +1,5 @@
 import { allPlayers } from '../data/seasons';
 
-// Legend 25% / Rare 45% / Common 30%
 function pickRarity() {
   const roll = Math.random() * 100;
   if (roll < 25) return 'legend';
@@ -8,23 +7,19 @@ function pickRarity() {
   return 'common';
 }
 
-function pickPlayer(role, rarity) {
-  const pool = allPlayers.filter(p => p.role === role && p.rarity === rarity);
-  const fallback = allPlayers.filter(p => p.role === role);
-  const source = pool.length > 0 ? pool : fallback;
+function pickOne(excludeNames) {
+  const rarity = pickRarity();
+  const byRarity = allPlayers.filter(p => p.rarity === rarity && !excludeNames.includes(p.name));
+  const fallback  = allPlayers.filter(p => !excludeNames.includes(p.name));
+  const source = byRarity.length > 0 ? byRarity : fallback;
   return source[Math.floor(Math.random() * source.length)];
 }
 
-const ROLES = ['DUELIST', 'INITIATOR', 'FLEX', 'SENTINEL', 'CONTROLLER'];
-
-export function pull() {
-  return ROLES.map(role => {
-    const rarity = pickRarity();
-    return pickPlayer(role, rarity);
+export function pull10() {
+  const usedNames = [];
+  return Array.from({ length: 10 }, () => {
+    const card = pickOne(usedNames);
+    if (card) usedNames.push(card.name);
+    return card;
   });
-}
-
-export function pullOne(role) {
-  const rarity = pickRarity();
-  return pickPlayer(role, rarity);
 }

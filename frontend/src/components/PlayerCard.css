@@ -174,18 +174,19 @@
 
 .player-name {
   position: absolute;
-  left: 42px;
+  left: 36px;
   right: 28px;
-  bottom: 48px;
+  bottom: 42px;
   z-index: 2;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 900;
-  line-height: 1.05;
+  line-height: 1.15;
   letter-spacing: 0.2px;
   text-align: center;
-  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   color: #f8fafc;
 }
 

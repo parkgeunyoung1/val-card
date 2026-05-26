@@ -147,6 +147,19 @@
 .empty-slot.disabled { cursor: not-allowed; opacity: 0.5; transform: none; }
 .empty-slot:hover .corner { width: 18px; height: 18px; }
 
+.empty-slot.active {
+  border-color: rgba(255, 70, 85, 0.55);
+  background: rgba(255, 70, 85, 0.08);
+  animation: slotPulse 1.2s ease-in-out infinite;
+}
+.empty-slot.active .corner { border-color: rgba(255, 70, 85, 0.6); }
+.empty-slot.active .slot-question { color: rgba(255, 70, 85, 0.3); }
+
+@keyframes slotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 70, 85, 0); }
+  50%       { box-shadow: 0 0 0 4px rgba(255, 70, 85, 0.15); }
+}
+
 /* ── Filled slot (재뽑기 오버레이) ─────────────────── */
 .filled-slot {
   position: relative;
@@ -156,11 +169,11 @@
 }
 .filled-slot.disabled { cursor: not-allowed; }
 
-.reroll-overlay {
+.slot-return-overlay {
   position: absolute;
   inset: 0;
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.72);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -170,7 +183,7 @@
   transition: opacity 0.2s;
   pointer-events: none;
 }
-.filled-slot:not(.disabled):hover .reroll-overlay { opacity: 1; }
+.filled-slot:hover .slot-return-overlay { opacity: 1; }
 
 .reroll-icon { font-size: 28px; }
 .reroll-text {
@@ -366,6 +379,283 @@
 .chem-badge.type-team        { background:rgba(245,158,11,.12); color:#f59e0b; border:1px solid rgba(245,158,11,.3); }
 .chem-badge.type-nationality { background:rgba(59,130,246,.12);  color:#60a5fa; border:1px solid rgba(59,130,246,.3); }
 .chem-badge.type-region      { background:rgba(167,139,250,.12); color:#a78bfa; border:1px solid rgba(167,139,250,.3); }
+
+/* ── 중앙 공개 오버레이 ────────────────────────── */
+.cr-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  background: rgba(4, 8, 16, 0.88);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  animation: crFadeIn 0.25s ease both;
+}
+
+@keyframes crFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.cr-progress {
+  display: flex;
+  gap: 8px;
+  cursor: default;
+}
+
+.cr-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1e293b;
+  border: 1px solid #334155;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+.cr-dot.done    { background: #475569; border-color: #64748b; }
+.cr-dot.current { background: #ff4655; border-color: #ff4655; transform: scale(1.3); }
+
+.cr-card-wrap {
+  perspective: 900px;
+  animation: crCardIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes crCardIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.85); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.cr-card-inner {
+  width: 168px;
+  height: 256px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1.35);
+}
+.cr-card-inner.flipped { transform: scale(1.35) rotateY(180deg); }
+
+.cr-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 10px;
+}
+.cr-back  { transform: rotateY(0deg); }
+.cr-front { transform: rotateY(180deg); }
+
+.cr-hint {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  min-height: 18px;
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+/* ── 카드 뒷면 ─────────────────────────────────── */
+.card-back {
+  width: 168px;
+  height: 256px;
+  border-radius: 10px;
+  background:
+    linear-gradient(145deg, #0d1829 0%, #07101c 60%, #0a1525 100%);
+  border: 1px solid rgba(255, 70, 85, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  overflow: hidden;
+}
+.card-back::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 70, 85, 0.03) 0px,
+      rgba(255, 70, 85, 0.03) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+}
+.card-back:hover {
+  border-color: rgba(255, 70, 85, 0.5);
+  box-shadow: 0 0 24px rgba(255, 70, 85, 0.18);
+  transform: translateY(-4px);
+}
+.card-back .corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-style: solid;
+  border-color: rgba(255, 70, 85, 0.4);
+  z-index: 1;
+}
+.card-back .corner.tl { top: 8px;    left: 8px;    border-width: 2px 0 0 2px; }
+.card-back .corner.tr { top: 8px;    right: 8px;   border-width: 2px 2px 0 0; }
+.card-back .corner.bl { bottom: 8px; left: 8px;    border-width: 0 0 2px 2px; }
+.card-back .corner.br { bottom: 8px; right: 8px;   border-width: 0 2px 2px 0; }
+
+.card-back-logo {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  z-index: 1;
+}
+.cbl-val  { color: #ff4655; }
+.cbl-card { color: rgba(241, 245, 249, 0.7); }
+
+.card-back-hint {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: rgba(255, 70, 85, 0.45);
+  z-index: 1;
+  animation: blink 1.6s ease-in-out infinite;
+}
+
+/* ── 카드 플립 ─────────────────────────────────── */
+.hand-card-flip {
+  flex-shrink: 0;
+  width: 168px;
+  height: 256px;
+  perspective: 800px;
+  animation: handDeal 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  border-radius: 10px;
+  transition: outline-color 0.15s;
+}
+.hand-card-flip.selected {
+  outline-color: #ff4655;
+}
+
+.hand-card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hand-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.hc-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 10px;
+}
+.hc-back  { transform: rotateY(0deg); }
+.hc-front { transform: rotateY(180deg); }
+
+.hc-front .player-card {
+  border-radius: 10px;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.hand-card-flip:not(.selected) .hc-front .player-card:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+.hand-card-flip.selected .hc-front .player-card {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(255, 70, 85, 0.4);
+}
+
+/* ── 손패 ──────────────────────────────────────── */
+.hand-section {
+  width: 100%;
+  max-width: 960px;
+  animation: fadeUp 0.5s ease both;
+}
+
+.hand-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 0 4px;
+}
+
+.hand-title {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #e2e8f0;
+  text-transform: uppercase;
+}
+
+.hand-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 0.5px;
+}
+
+.hand-hint {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ff4655;
+  letter-spacing: 0.5px;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.hand-cards {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #1e293b transparent;
+}
+
+.hand-cards::-webkit-scrollbar { height: 4px; }
+.hand-cards::-webkit-scrollbar-track { background: transparent; }
+.hand-cards::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 2px; }
+
+.hand-card-wrap {
+  flex-shrink: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s, outline-color 0.15s;
+  animation: handDeal 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+}
+
+@keyframes handDeal {
+  from { opacity: 0; transform: translateY(24px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.hand-card-wrap:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.hand-card-wrap.selected {
+  outline-color: #ff4655;
+  transform: translateY(-10px);
+  box-shadow: 0 16px 40px rgba(255, 70, 85, 0.4);
+}
 
 /* ── Responsive ────────────────────────────────── */
 @media (max-width: 1000px) {
