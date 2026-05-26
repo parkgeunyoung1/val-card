@@ -1,0 +1,268 @@
+/* ── Base ──────────────────────────────────────── */
+.gacha-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #060d14;
+  background-image:
+    linear-gradient(rgba(255, 70, 85, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 70, 85, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  color: #fff;
+}
+
+/* ── Header ────────────────────────────────────── */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 64px;
+  background: rgba(6, 13, 20, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 70, 85, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-logo {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+.logo-val  { color: #ff4655; }
+.logo-card { color: #f1f5f9; }
+
+.header-nav { display: flex; gap: 8px; }
+
+.nav-link {
+  color: #64748b;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 70, 85, 0.2);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  letter-spacing: 0.3px;
+}
+.nav-link:hover {
+  color: #ff4655;
+  border-color: rgba(255, 70, 85, 0.5);
+  background: rgba(255, 70, 85, 0.07);
+}
+
+/* ── Main ──────────────────────────────────────── */
+.gacha-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 64px 24px 80px;
+}
+
+/* ── Hero text ─────────────────────────────────── */
+.hero-text {
+  text-align: center;
+  animation: fadeDown 0.6s ease both;
+}
+.hero-text h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+.hero-text .accent { color: #ff4655; }
+.hero-text p {
+  color: #64748b;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Slots wrapper ─────────────────────────────── */
+.slots-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: fadeUp 0.6s 0.15s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.role-labels {
+  display: flex;
+  gap: 12px;
+}
+.role-label {
+  width: 168px;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: #334155;
+}
+
+.cards-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+/* ── Empty slot ────────────────────────────────── */
+.empty-slot {
+  position: relative;
+  width: 168px;
+  height: 260px;
+  border-radius: 10px;
+  background: rgba(10, 18, 28, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  transition: border-color 0.25s, background 0.25s;
+  cursor: default;
+}
+.empty-slot:hover {
+  border-color: rgba(255, 70, 85, 0.2);
+  background: rgba(255, 70, 85, 0.03);
+}
+.empty-slot:hover .corner { width: 18px; height: 18px; }
+
+.empty-slot .corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-style: solid;
+  border-color: rgba(255, 70, 85, 0.25);
+  transition: width 0.25s, height 0.25s;
+}
+.empty-slot .corner.tl { top: 8px;    left: 8px;    border-width: 2px 0 0 2px; }
+.empty-slot .corner.tr { top: 8px;    right: 8px;   border-width: 2px 2px 0 0; }
+.empty-slot .corner.bl { bottom: 8px; left: 8px;    border-width: 0 0 2px 2px; }
+.empty-slot .corner.br { bottom: 8px; right: 8px;   border-width: 0 2px 2px 0; }
+
+.slot-question {
+  font-size: 56px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.1);
+  line-height: 1;
+  transition: color 0.25s;
+}
+.empty-slot:hover .slot-question { color: rgba(255, 70, 85, 0.25); }
+
+.slot-role {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #334155;
+}
+
+.slot-cta {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: rgba(255, 70, 85, 0.3);
+  text-transform: uppercase;
+}
+
+/* ── Buttons ───────────────────────────────────── */
+.pull-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-summon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #ff4655 0%, #c82333 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 44px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 4px 28px rgba(255, 70, 85, 0.35);
+  transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+  text-transform: uppercase;
+}
+.btn-summon:hover:not(:disabled) {
+  transform: scale(1.04) translateY(-2px);
+  box-shadow: 0 8px 40px rgba(255, 70, 85, 0.5);
+}
+.btn-summon:disabled,
+.btn-summon.loading {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-icon { font-size: 18px; }
+
+.btn-reset {
+  background: transparent;
+  color: #64748b;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 10px;
+  padding: 16px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.btn-reset:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Rate info ─────────────────────────────────── */
+.rate-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadeUp 0.6s 0.45s ease both;
+}
+.rate {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.rate.legend { color: #f59e0b; }
+.rate.rare   { color: #60a5fa; }
+.rate.common { color: #64748b; }
+.rate-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #1e293b;
+}
+
+/* ── Responsive ────────────────────────────────── */
+@media (max-width: 1000px) {
+  .site-header { padding: 0 20px; }
+  .cards-row { gap: 8px; }
+  .role-labels { gap: 8px; }
+  .role-label { width: 148px; }
+  .empty-slot { width: 148px; }
+}
