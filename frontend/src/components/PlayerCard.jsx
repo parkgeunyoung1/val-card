@@ -1,4 +1,5 @@
 import { TEAM_LOGOS, LEAGUE_LOGOS } from '../data/logos';
+import PLAYER_PHOTOS from '../data/player-photos';
 import './PlayerCard.css';
 
 const RARITY_LABELS = { legend: 'LEGEND', rare: 'RARE', common: 'COMMON' };
@@ -30,7 +31,10 @@ function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
   const { name, team, nationality, rarity, role, seasonId, seasonLabel, seasonBadge, image_url: imageUrl } = player;
   const teamLogo = TEAM_LOGOS[team];
   const seasonLogo = LEAGUE_LOGOS[seasonId];
-  const backgroundStyle = imageUrl ? { backgroundImage: `url(${imageUrl})` } : undefined;
+  const photoUrl = PLAYER_PHOTOS[name] || imageUrl || '';
+  const backgroundStyle = photoUrl
+    ? { backgroundImage: `url(${photoUrl})`, backgroundSize: 'cover', backgroundPosition: 'top center' }
+    : undefined;
 
   return (
     <div

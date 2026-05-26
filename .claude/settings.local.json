@@ -4,7 +4,14 @@
       "WebFetch(domain:www.vlr.gg)",
       "WebFetch(domain:liquipedia.net)",
       "WebSearch",
-      "WebFetch(domain:vlr.gg)"
+      "WebFetch(domain:vlr.gg)",
+      "PowerShell(New-Item *)",
+      "Read(//mnt/c/Users/SSAFY/**)",
+      "Bash(node download-player-photos.js)",
+      "PowerShell(Get-Process *)",
+      "Bash(node *)",
+      "PowerShell(head *)",
+      "PowerShell(Get-Content *)"
     ]
   }
 }
