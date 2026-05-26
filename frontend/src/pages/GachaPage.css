@@ -125,7 +125,7 @@
 .empty-slot {
   position: relative;
   width: 168px;
-  height: 260px;
+  height: 256px;
   border-radius: 10px;
   background: rgba(10, 18, 28, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.06);

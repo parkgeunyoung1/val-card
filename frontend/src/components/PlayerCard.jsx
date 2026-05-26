@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { TEAM_LOGOS, LEAGUE_LOGOS } from '../data/logos';
 import './PlayerCard.css';
 
 const RARITY_LABELS = { legend: 'LEGEND', rare: 'RARE', common: 'COMMON' };
@@ -12,6 +14,50 @@ const ROLE_ICONS = {
   DUELIST:'⚔️', INITIATOR:'💡', FLEX:'🔄', SENTINEL:'🛡️', CONTROLLER:'🌫️',
 };
 
+function TeamAvatar({ name, team, rarity }) {
+  const [imgFailed, setImgFailed] = useState(false);
+  const logoUrl = TEAM_LOGOS[team];
+
+  if (logoUrl && !imgFailed) {
+    return (
+      <div className={`avatar rarity-${rarity}`}>
+        <img
+          src={logoUrl}
+          alt={team}
+          className="avatar-logo"
+          onError={() => setImgFailed(true)}
+        />
+      </div>
+    );
+  }
+  return (
+    <div className={`avatar rarity-${rarity}`}>
+      {name.charAt(0).toUpperCase()}
+    </div>
+  );
+}
+
+function LeagueBadge({ seasonId, seasonBadge, seasonLabel, seasonColor }) {
+  const [imgFailed, setImgFailed] = useState(false);
+  const logoUrl = LEAGUE_LOGOS[seasonId];
+
+  return (
+    <div className="season-badge" style={{ '--season-color': seasonColor || '#64748b' }}>
+      {logoUrl && !imgFailed ? (
+        <img
+          src={logoUrl}
+          alt={seasonLabel}
+          className="season-league-logo"
+          onError={() => setImgFailed(true)}
+        />
+      ) : (
+        <span className="season-badge-icon">{seasonBadge}</span>
+      )}
+      <span className="season-badge-label">{seasonLabel}</span>
+    </div>
+  );
+}
+
 function ChemDots({ level = 0 }) {
   return (
     <div className="chem-dots">
@@ -23,7 +69,7 @@ function ChemDots({ level = 0 }) {
 }
 
 function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
-  const { name, team, nationality, rarity, role } = player;
+  const { name, team, nationality, rarity, role, seasonId, seasonLabel, seasonBadge, seasonColor } = player;
 
   return (
     <div
@@ -37,10 +83,17 @@ function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
 
       <div className={`rarity-bar rarity-${rarity}`} />
 
+      {seasonLabel && (
+        <LeagueBadge
+          seasonId={seasonId}
+          seasonBadge={seasonBadge}
+          seasonLabel={seasonLabel}
+          seasonColor={seasonColor}
+        />
+      )}
+
       <div className="card-image-area">
-        <div className={`avatar rarity-${rarity}`}>
-          {name.charAt(0).toUpperCase()}
-        </div>
+        <TeamAvatar name={name} team={team} rarity={rarity} />
       </div>
 
       <div className="card-body">

@@ -1,4 +1,4 @@
-import players from '../data/players';
+import { allPlayers } from '../data/seasons';
 
 // Legend 25% / Rare 45% / Common 30%
 function pickRarity() {
@@ -9,9 +9,8 @@ function pickRarity() {
 }
 
 function pickPlayer(role, rarity) {
-  const pool = players.filter(p => p.role === role && p.rarity === rarity);
-  // 해당 등급에 선수가 없으면 같은 포지션에서 아무나
-  const fallback = players.filter(p => p.role === role);
+  const pool = allPlayers.filter(p => p.role === role && p.rarity === rarity);
+  const fallback = allPlayers.filter(p => p.role === role);
   const source = pool.length > 0 ? pool : fallback;
   return source[Math.floor(Math.random() * source.length)];
 }
@@ -21,11 +20,11 @@ const ROLES = ['DUELIST', 'INITIATOR', 'FLEX', 'SENTINEL', 'CONTROLLER'];
 export function pull() {
   return ROLES.map(role => {
     const rarity = pickRarity();
-    return { ...pickPlayer(role, rarity), rarity };
+    return pickPlayer(role, rarity);
   });
 }
 
 export function pullOne(role) {
   const rarity = pickRarity();
-  return { ...pickPlayer(role, rarity), rarity };
+  return pickPlayer(role, rarity);
 }

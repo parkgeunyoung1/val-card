@@ -29,12 +29,17 @@ const ROLE_ICON = {
 const RARITY_COLOR = { legend:'#f59e0b', rare:'#60a5fa', common:'#94a3b8' };
 
 function buildSteps(player) {
-  return [
-    { label: 'TEAM',        value: player.team,                                                           xl: false },
+  const steps = [];
+  if (player.seasonBadge && player.seasonLabel) {
+    steps.push({ label: 'SEASON', value: `${player.seasonBadge} ${player.seasonLabel}`, xl: false });
+  }
+  steps.push(
+    { label: 'TEAM',        value: player.team,                                                                       xl: false },
     { label: 'NATIONALITY', value: `${FLAG[player.nationality] || ''} ${COUNTRY[player.nationality] || player.nationality}`, xl: false },
-    { label: 'ROLE',        value: `${ROLE_ICON[player.role] || ''} ${player.role}`,                      xl: false },
-    { label: null,          value: player.name,                                                           xl: true  },
-  ];
+    { label: 'ROLE',        value: `${ROLE_ICON[player.role] || ''} ${player.role}`,                                  xl: false },
+    { label: null,          value: player.name,                                                                       xl: true  },
+  );
+  return steps;
 }
 
 function Particles({ color }) {

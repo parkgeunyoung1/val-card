@@ -1,0 +1,62 @@
+// 팀 이름 → 로컬 이미지 경로
+export const TEAM_LOGOS = {
+  'Sentinels':       '/logos/teams/sentinels.png',
+  'LOUD':            '/logos/teams/loud.png',
+  'NRG':             '/logos/teams/nrg.png',
+  'Evil Geniuses':   '/logos/teams/evil-geniuses.png',
+  '100 Thieves':     '/logos/teams/100-thieves.png',
+  'M80':             '/logos/teams/m80.png',
+  'KRÜ Esports':    '/logos/teams/kru-esports.png',
+  'Cloud9':          '/logos/teams/cloud9.png',
+  'Leviatán':        '/logos/teams/leviatan.png',
+  'MIBR':            '/logos/teams/mibr.png',
+  '2Game Esports':   '/logos/teams/2game-esports.png',
+  'G2 Esports':      '/logos/teams/g2-esports.png',
+  'FURIA':           '/logos/teams/furia.png',
+  'Fnatic':          '/logos/teams/fnatic.png',
+  'Team Liquid':     '/logos/teams/team-liquid.png',
+  'Team Vitality':   '/logos/teams/team-vitality.png',
+  'NaVi':            '/logos/teams/natus-vincere.png',
+  'Guild Esports':   '/logos/teams/guild-esports.png',
+  'BBL Esports':     '/logos/teams/bbl-esports.png',
+  'Karmine Corp':    '/logos/teams/karmine-corp.png',
+  'FUT Esports':     '/logos/teams/fut-esports.png',
+  'Gentle Mates':    '/logos/teams/gentle-mates.png',
+  'GIANTX':          '/logos/teams/giantx.png',
+  'Apeks':           '/logos/teams/apeks.png',
+  'Team Heretics':   '/logos/teams/team-heretics.png',
+  'KOI':             '/logos/teams/koi.png',
+  'ZETA DIVISION':   '/logos/teams/zeta-division.png',
+  'DRX':             '/logos/teams/drx.png',
+  'Paper Rex':       '/logos/teams/paper-rex.png',
+  'T1':              '/logos/teams/t1.png',
+  'Gen.G':           '/logos/teams/geng.png',
+  'Global Esports':  '/logos/teams/global-esports.png',
+  'Talon Esports':   '/logos/teams/talon-esports.png',
+  'RRQ':             '/logos/teams/rrq.png',
+  'DFM':             '/logos/teams/dfm.png',
+  'Bleed Esports':   '/logos/teams/bleed-esports.png',
+};
+
+// 시즌 ID → 리그/토너먼트 로고
+export const LEAGUE_LOGOS = {
+  'champions-paris-25':   '/logos/leagues/vct-champions-2025.png',
+  'masters-toronto-25':   '/logos/leagues/vct-masters-2025.png',
+  'pacific-stage2-25':    '/logos/leagues/vct-pacific.png',
+  'americas-stage2-25':   '/logos/leagues/vct-americas.png',
+};
+
+// 팀 소속 권역
+export const TEAM_REGION = {
+  'Sentinels':'americas', 'LOUD':'americas', 'NRG':'americas',
+  'Evil Geniuses':'americas', '100 Thieves':'americas', 'M80':'americas',
+  'KRÜ Esports':'americas', 'Cloud9':'americas', 'Leviatán':'americas',
+  'MIBR':'americas', '2Game Esports':'americas', 'G2 Esports':'americas', 'FURIA':'americas',
+  'Fnatic':'emea', 'Team Liquid':'emea', 'Team Vitality':'emea',
+  'NaVi':'emea', 'Guild Esports':'emea', 'BBL Esports':'emea',
+  'Karmine Corp':'emea', 'FUT Esports':'emea', 'Gentle Mates':'emea',
+  'GIANTX':'emea', 'Apeks':'emea', 'Team Heretics':'emea', 'KOI':'emea',
+  'ZETA DIVISION':'pacific', 'DRX':'pacific', 'Paper Rex':'pacific',
+  'T1':'pacific', 'Gen.G':'pacific', 'Global Esports':'pacific',
+  'Talon Esports':'pacific', 'RRQ':'pacific', 'DFM':'pacific', 'Bleed Esports':'pacific',
+};

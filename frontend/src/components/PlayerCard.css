@@ -1,7 +1,7 @@
 .player-card {
   position: relative;
   width: 168px;
-  height: 230px;
+  height: 256px;
   border-radius: 12px;
   background: linear-gradient(160deg, #1a2535, #0d1520);
   border: 1px solid #2a3a4a;
@@ -54,8 +54,41 @@
 .rarity-bar.rarity-rare   { background: linear-gradient(90deg,#1d4ed8,#3b82f6,#1d4ed8); }
 .rarity-bar.rarity-common { background: #374151; }
 
+/* ── 시즌 뱃지 ──────────────────────────── */
+.season-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+  padding: 2px 8px 2px 4px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.season-league-logo {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.season-badge-icon { font-size: 9px; line-height: 1; }
+.season-badge-label {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--season-color, #94a3b8);
+  white-space: nowrap;
+}
+
+/* ── 팀 로고 ─────────────────────────────── */
+.avatar-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
 /* ── 아바타 ─────────────────────────────── */
-.card-image-area { margin: 14px 0 10px; }
+.card-image-area { margin: 6px 0 8px; }
 .avatar {
   width: 84px; height: 84px;
   border-radius: 50%;

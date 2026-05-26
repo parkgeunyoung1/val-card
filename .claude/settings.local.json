@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.vlr.gg)",
+      "WebFetch(domain:liquipedia.net)",
+      "WebSearch",
+      "WebFetch(domain:vlr.gg)"
+    ]
+  }
+}
