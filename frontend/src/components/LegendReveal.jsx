@@ -60,6 +60,14 @@ function LegendReveal({ player, onComplete }) {
   const steps = buildSteps(player);
   const color = RARITY_COLOR[player.rarity] || '#fff';
 
+  useEffect(() => {
+    const imageSources = [LEAGUE_LOGOS[player.seasonId], TEAM_LOGOS[player.team]].filter(Boolean);
+    imageSources.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, [player.seasonId, player.team]);
+
   function complete() {
     if (doneRef.current) return;
     doneRef.current = true;
@@ -116,7 +124,7 @@ function LegendReveal({ player, onComplete }) {
 
     if (step.type === 'role') {
       return (
-        <div className={`reveal-step ${phase === 'in' ? 'entering' : 'exiting'} xl`}>
+        <div key={`${stepIndex}-${phase}-${step.type}`} className={`reveal-step ${phase === 'in' ? 'entering' : 'exiting'} xl`}>
           <span className="step-label">{step.label}</span>
           <span className="step-value reveal-role" style={{ color, textShadow: `0 0 32px ${color}88` }}>
             {step.value}
@@ -126,12 +134,12 @@ function LegendReveal({ player, onComplete }) {
     }
 
     return (
-      <div className={`reveal-step ${phase === 'in' ? 'entering' : 'exiting'}`}>
+      <div key={`${stepIndex}-${phase}-${step.type}`} className={`reveal-step ${phase === 'in' ? 'entering' : 'exiting'}`}>
         <div className="reveal-visual">
           {step.image ? (
-            <img src={step.image} alt={step.label} className="reveal-logo" />
+            <img key={step.image} src={step.image} alt={step.label} className="reveal-logo" />
           ) : (
-            <span className="reveal-fallback" style={{ color, textShadow: `0 0 32px ${color}88` }}>{step.fallback}</span>
+            <span key={step.fallback} className="reveal-fallback" style={{ color, textShadow: `0 0 32px ${color}88` }}>{step.fallback}</span>
           )}
         </div>
         <span className="step-label">{step.type === 'season' ? 'SEASON' : 'TEAM'}</span>
