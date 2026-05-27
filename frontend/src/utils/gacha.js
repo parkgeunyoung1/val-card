@@ -8,18 +8,21 @@ function pickRank() {
   return 'DIAMOND';
 }
 
-function pickOne(excludeNames) {
+function pickOne(pool, excludeNames) {
   const rank = pickRank();
-  const byRank = allPlayers.filter(p => p.rank === rank && !excludeNames.includes(p.name));
-  const fallback = allPlayers.filter(p => !excludeNames.includes(p.name));
+  const byRank = pool.filter(p => p.rank === rank && !excludeNames.includes(p.name));
+  const fallback = pool.filter(p => !excludeNames.includes(p.name));
   const source = byRank.length > 0 ? byRank : fallback;
   return source[Math.floor(Math.random() * source.length)];
 }
 
-export function pull10() {
+export function pull10(seasonIds = []) {
+  const pool = seasonIds.length > 0
+    ? allPlayers.filter(p => seasonIds.includes(p.seasonId))
+    : allPlayers;
   const usedNames = [];
   return Array.from({ length: 10 }, () => {
-    const card = pickOne(usedNames);
+    const card = pickOne(pool, usedNames);
     if (card) usedNames.push(card.name);
     return card;
   });

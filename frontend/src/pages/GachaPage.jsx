@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { pull10 } from '../utils/gacha';
 import { calcChemistry } from '../utils/chemistry';
+import { SEASON_DEFINITIONS, allPlayers } from '../data/seasons';
 import PlayerCard from '../components/PlayerCard';
 import LegendReveal from '../components/LegendReveal';
 import './GachaPage.css';
@@ -148,6 +149,120 @@ function HandCard({ item, selected, onSelect }) {
   );
 }
 
+/* ── 시즌 모달 ────────────────────────────────────── */
+const ACTIVE_IDS = new Set(allPlayers.map(p => p.seasonId));
+const ACTIVE_SEASONS = SEASON_DEFINITIONS.filter(s => ACTIVE_IDS.has(s.id));
+const SEASONS_BY_YEAR = ACTIVE_SEASONS.reduce((acc, s) => {
+  const year = s.period.match(/(\d{4})/)?.[1] || '?';
+  (acc[year] = acc[year] || []).push(s);
+  return acc;
+}, {});
+
+function getSeasonLogo(id) {
+  if (id.includes('lock-in'))   return '/logos/leagues/vct-lock-in-23.png';
+  if (id.includes('americas'))  return '/logos/leagues/vct-americas.png';
+  if (id.includes('emea'))      return '/logos/leagues/vct-emea.png';
+  if (id.includes('pacific'))   return '/logos/leagues/vct-pacific.png';
+  if (id.includes('china'))     return '/logos/leagues/vct-china.png';
+  if (id.includes('masters'))   return '/logos/leagues/vct-masters-2025.png';
+  if (id.includes('champions')) return '/logos/leagues/vct-champions-2025.png';
+  return null;
+}
+
+function SeasonGrid({ selected, onChange }) {
+  function toggle(id) {
+    onChange(prev => prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]);
+  }
+  function toggleYear(ids) {
+    const allSel = ids.every(id => selected.includes(id));
+    if (allSel) onChange(prev => prev.filter(id => !ids.includes(id)));
+    else onChange(prev => [...new Set([...prev, ...ids])]);
+  }
+  return (
+    <div className="sg-body">
+      {Object.entries(SEASONS_BY_YEAR).map(([year, seasons]) => {
+        const ids = seasons.map(s => s.id);
+        const allSel = ids.every(id => selected.includes(id));
+        const someSel = !allSel && ids.some(id => selected.includes(id));
+        return (
+          <div key={year} className="sg-year-block">
+            <button
+              className={`sg-year-tag${allSel ? ' all' : someSel ? ' some' : ''}`}
+              onClick={() => toggleYear(ids)}
+              type="button"
+            >
+              {year}
+            </button>
+            <div className="sg-cards">
+              {seasons.map(s => {
+                const sel = selected.includes(s.id);
+                const logo = getSeasonLogo(s.id);
+                return (
+                  <button
+                    key={s.id}
+                    className={`sg-card${sel ? ' selected' : ''}`}
+                    style={{ '--sc': s.color }}
+                    onClick={() => toggle(s.id)}
+                    type="button"
+                    title={s.name}
+                  >
+                    {logo
+                      ? <img src={logo} alt="" className="sg-logo" />
+                      : <span className="sg-badge">{s.badge}</span>
+                    }
+                    <span className="sg-name">{s.short}</span>
+                    {sel && <span className="sg-check">✓</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function SeasonModal({ selected, onChange, disabled }) {
+  const [open, setOpen] = useState(false);
+  const isAll = selected.length === 0;
+  const label = isAll ? '전체 시즌' : `${selected.length}개 시즌 선택`;
+
+  return (
+    <>
+      <button
+        className="season-modal-trigger"
+        onClick={() => !disabled && setOpen(true)}
+        disabled={disabled}
+        type="button"
+      >
+        <span className="smt-label">{label}</span>
+        <span className="smt-arrow">▾</span>
+      </button>
+      {open && (
+        <div className="season-modal-overlay" onClick={() => setOpen(false)}>
+          <div className="season-modal-panel" onClick={e => e.stopPropagation()}>
+            <div className="season-modal-header">
+              <span className="smh-title">시즌 선택</span>
+              <div className="smh-actions">
+                <button
+                  className={`sg-all-btn${isAll ? ' active' : ''}`}
+                  onClick={() => onChange([])}
+                  type="button"
+                >
+                  {isAll ? '전체 선택됨' : '전체 초기화'}
+                </button>
+                <button className="smh-close" onClick={() => setOpen(false)} type="button">✕</button>
+              </div>
+            </div>
+            <SeasonGrid selected={selected} onChange={onChange} />
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 /* ── 메인 ────────────────────────────────────────── */
 function GachaPage() {
   // 중앙 공개 관련
@@ -156,6 +271,9 @@ function GachaPage() {
   const [flipped,    setFlipped]    = useState(false);
   const [total,      setTotal]      = useState(0);
   const [revealKey,  setRevealKey]  = useState(0); // 카드마다 다른 key → 새 마운트
+
+  // 시즌 선택
+  const [selectedSeasons, setSelectedSeasons] = useState([]); // 빈 배열 = 전체
 
   // 손패 & 슬롯
   const [hand,        setHand]        = useState([]);
@@ -179,7 +297,7 @@ function GachaPage() {
   /* 뽑기 */
   function handlePull() {
     if (dealing || busy) return;
-    const cards = pull10();
+    const cards = pull10(selectedSeasons);
     setHand([]);
     setSlots(Array(5).fill(null));
     setSelectedIdx(null);
@@ -194,7 +312,7 @@ function GachaPage() {
   async function handleFlip() {
     if (busy || flipped) return;
     const card = current;
-    if (card.rarity === 'legend' || card.rank === 'RADIANT') {
+    if (card.rank === 'RADIANT') {
       setBusy(true);
       setRevealCard(card);
       await new Promise(resolve => { resolveRef.current = resolve; });
@@ -302,6 +420,13 @@ function GachaPage() {
           {chem && <ChemLines connections={chem.connections} />}
           {allFilled && chem && <ChemPanel chem={chem} />}
         </div>
+
+        {/* ── 시즌 선택 ── */}
+        <SeasonModal
+          selected={selectedSeasons}
+          onChange={setSelectedSeasons}
+          disabled={dealing || busy}
+        />
 
         {/* ── 뽑기 버튼 ── */}
         <div className="pull-actions">

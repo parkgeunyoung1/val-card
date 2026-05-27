@@ -73,6 +73,7 @@ const seasons = SEASON_DEFINITIONS.map((meta) => ({
   players: attachMeta(GP[meta.id] || [], meta),
 }));
 
+export { SEASON_DEFINITIONS };
 export const allPlayers = seasons.flatMap((season) => season.players);
 
 export default seasons;
