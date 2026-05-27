@@ -15,32 +15,7 @@ const PLACEHOLDER_HASHES = new Set([
   '2086059c57b35127cb43910e6e4710ea',
 ]);
 
-// 잘못된 사진이 반복 다운로드되는 선수 차단 목록
-const BLOCKED_PLAYERS = new Set([
-  'Ash',        // VCT 캐스터 사진
-  'Autumn',     // 감독 사진
-  'Klaus',      // 다른 선수 사진
-  'DK',         // TOE Gaming 로고
-  'LockM',      // TOE Gaming 로고
-  'YOU',        // TOE Gaming 로고
-  'glacier',    // 게임 캐릭터 로고
-  'KiTae',      // 아마추어챔피언스 로고
-  'kawaii',     // NDP 로고
-  'Ninebody',   // NDP 로고
-  'nzr',        // LATAM Gods 로고
-  'RgLMeister', // LATAM Gods 로고
-  'Pa1nt',      // Liquid Open 로고
-  'Paincakes',  // 팀 로고
-  'PangH',      // 팀 로고
-  'rich',       // GamersClub 로고
-  'Kess',       // Oklahoma 대학 로고
-  'Kyu',        // West Virginia 대학 로고
-  'XiYiJi',    // 중국 팀 로고
-  'Yoyo',       // K7 Esports 로고
-  'Add3r',      // Proving Grounds 토너먼트 로고
-  'echo',       // Esports Kotex 로고
-  'Egoist',     // Liquipedia 플레이스홀더
-]);
+const BLOCKED_PLAYERS = new Set([]);
 
 const API_HEADERS = {
   'User-Agent':      'VALCARD-FanProject/1.0 (rmsdud3847@gmail.com)',

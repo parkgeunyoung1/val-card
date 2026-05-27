@@ -375,7 +375,7 @@ const PLAYER_PHOTOS = {
   "RieNs": "/photos/players/RieNs.png",
   "Rimuru": "/photos/players/Rimuru.png",
   "RobbieBk": "/photos/players/RobbieBk.png",
-  "Rosé": "/photos/players/Rose.png",
+  "Rosé": "/photos/players/Rosé.png",
   "Rossy": "/photos/players/Rossy.png",
   "runi": "/photos/players/runi.png",
   "runneR": "/photos/players/runneR.png",
