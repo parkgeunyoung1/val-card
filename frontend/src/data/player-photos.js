@@ -194,7 +194,6 @@ const PLAYER_PHOTOS = {
   "Kicks": "/photos/players/Kicks.png",
   "Killua": "/photos/players/Killua.png",
   "kiNgg": "/photos/players/kiNgg.png",
-  "Klaus": "/photos/players/Klaus.png",
   "Knight": "/photos/players/Knight.png",
   "koalanoob": "/photos/players/koalanoob.png",
   "koldamenta": "/photos/players/koldamenta.png",
