@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { pull10 } from '../utils/gacha';
+import { pull15 } from '../utils/gacha';
 import { calcChemistry } from '../utils/chemistry';
 import { SEASON_DEFINITIONS, allPlayers } from '../data/seasons';
 import PlayerCard from '../components/PlayerCard';
@@ -297,7 +297,7 @@ function GachaPage() {
   /* 뽑기 */
   function handlePull() {
     if (dealing || busy) return;
-    const cards = pull10(selectedSeasons);
+    const cards = pull15(selectedSeasons);
     setHand([]);
     setSlots(Array(5).fill(null));
     setSelectedIdx(null);
@@ -397,7 +397,7 @@ function GachaPage() {
       <main className="gacha-main">
         <div className="hero-text">
           <h1>Build Your Dream<br /><span className="accent">Valorant</span> Team</h1>
-          <p>10장을 뽑고 원하는 선수를 포지션에 배치하세요</p>
+          <p>15장을 뽑고 원하는 선수를 포지션에 배치하세요</p>
         </div>
 
         {/* ── 팀 슬롯 ── */}
@@ -436,7 +436,7 @@ function GachaPage() {
             disabled={dealing || busy}
           >
             <span className="btn-icon">⚡</span>
-            {dealing ? 'REVEALING...' : 'PULL 10'}
+            {dealing ? 'REVEALING...' : 'PULL 15'}
           </button>
         </div>
 

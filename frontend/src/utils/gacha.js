@@ -16,12 +16,12 @@ function pickOne(pool, excludeNames) {
   return source[Math.floor(Math.random() * source.length)];
 }
 
-export function pull10(seasonIds = []) {
+export function pull15(seasonIds = []) {
   const pool = seasonIds.length > 0
     ? allPlayers.filter(p => seasonIds.includes(p.seasonId))
     : allPlayers;
   const usedNames = [];
-  return Array.from({ length: 10 }, () => {
+  return Array.from({ length: 15 }, () => {
     const card = pickOne(pool, usedNames);
     if (card) usedNames.push(card.name);
     return card;
