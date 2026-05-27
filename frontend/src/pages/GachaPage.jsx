@@ -194,13 +194,15 @@ function GachaPage() {
   async function handleFlip() {
     if (busy || flipped) return;
     const card = current;
-    if (card.rarity === 'legend') {
+    if (card.rarity === 'legend' || card.rank === 'RADIANT') {
       setBusy(true);
       setRevealCard(card);
       await new Promise(resolve => { resolveRef.current = resolve; });
+      // 레전드 연출 후 CenterReveal에 이미 뒤집힌 상태로 전환 → 일반 카드와 동일하게 슬라이드
       setRevealCard(null);
-      await sleep(200);
+      setFlipped(true);
       setBusy(false);
+      return;
     }
     setFlipped(true);
   }
@@ -272,10 +274,6 @@ function GachaPage() {
           <span className="logo-val">VAL</span>
           <span className="logo-card">CARD</span>
         </div>
-        <nav className="header-nav">
-          <a href="#" className="nav-link">확률 정보</a>
-          <a href="#" className="nav-link">선수 목록</a>
-        </nav>
       </header>
 
       <main className="gacha-main">
@@ -318,11 +316,13 @@ function GachaPage() {
         </div>
 
         <div className="rate-info">
-          <span className="rate legend">Legend 25%</span>
+          <span className="rate legend">RADIANT 10%</span>
           <span className="rate-dot" />
-          <span className="rate rare">Rare 45%</span>
+          <span className="rate rare">IMMORTAL 25%</span>
           <span className="rate-dot" />
-          <span className="rate common">Common 30%</span>
+          <span className="rate common">ASCENDANT 35%</span>
+          <span className="rate-dot" />
+          <span className="rate common">DIAMOND 30%</span>
         </div>
 
         {/* ── 손패 ── */}

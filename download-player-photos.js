@@ -85,7 +85,7 @@ function get(url, binary = false, customHeaders = API_HEADERS, depth = 0) {
 
 // ── 이미지 파일명 필터 ────────────────────────────────
 const SKIP_MODE  = /allmode|lightmode|darkmode/i;
-const SKIP_NAMES = /No_image|Question_mark|Silhouette|placeholder|Unknown|Flag_|icon|logo|std\.png|hd\.png/i;
+const SKIP_NAMES = /No_?image|NoImage|Question_mark|Silhouette|placeholder|Unknown|Flag_|icon|logo|std\.png|hd\.png|Infobox/i;
 const IS_PLAYER_PHOTO = /\.(jpg|jpeg|png)$/i;
 
 // ── Liquipedia API: 선수 페이지 이미지 목록 조회 ──────

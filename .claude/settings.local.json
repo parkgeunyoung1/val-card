@@ -11,7 +11,10 @@
       "PowerShell(Get-Process *)",
       "Bash(node *)",
       "PowerShell(head *)",
-      "PowerShell(Get-Content *)"
+      "PowerShell(Get-Content *)",
+      "Bash(grep -E \",D$\")",
+      "Bash(npm run *)",
+      "Bash(grep -v \"//\")"
     ]
   }
 }

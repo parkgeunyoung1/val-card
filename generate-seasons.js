@@ -174,6 +174,8 @@ function getRoleRoundRobin(team) {
   return role;
 }
 
+const GRADE_TO_RANK = { A:'RADIANT', B:'IMMORTAL', C:'ASCENDANT', D:'DIAMOND' };
+
 // ── CSV 파싱 ────────────────────────────────────────────
 const csvPath = path.join(__dirname, 'valorant_global_master_roster.csv');
 const raw = fs.readFileSync(csvPath, 'utf8').replace(/^﻿/, '');
@@ -184,7 +186,7 @@ const bySeasonId = {};
 for (const line of lines) {
   const cols = line.split(',');
   if (cols.length < 3) continue;
-  const [seasonName, team, ign, nat] = cols.map(c => c.trim());
+  const [seasonName, team, ign, nat, csvRole, csvGrade] = cols.map(c => c.trim());
   if (!ign) continue;
 
   const seasonId = SEASON_ID_MAP[seasonName];
@@ -192,11 +194,12 @@ for (const line of lines) {
 
   if (!bySeasonId[seasonId]) bySeasonId[seasonId] = [];
 
-  const role = PLAYER_ROLES[ign] || getRoleRoundRobin(team);
+  const role   = csvRole   || PLAYER_ROLES[ign] || getRoleRoundRobin(team);
+  const rank   = GRADE_TO_RANK[csvGrade] || '';
   const rarity = getRarity(seasonId, team);
   const id = `${seasonId.slice(0,8)}-${ign.toLowerCase().replace(/[^a-z0-9]/g,'')}`;
 
-  bySeasonId[seasonId].push({ id, name: ign, team, role, nat: nat || 'US', rarity });
+  bySeasonId[seasonId].push({ id, name: ign, team, role, nat: nat || 'US', rarity, rank });
 }
 
 // ── JS 파일 생성 ─────────────────────────────────────────
@@ -212,7 +215,7 @@ for (const sid of seasonIds) {
   lines_out.push(`  ${JSON.stringify(sid)}: [`);
   for (const p of players) {
     lines_out.push(
-      `    { id:${JSON.stringify(p.id)}, name:${JSON.stringify(p.name)}, team:${JSON.stringify(p.team)}, role:${JSON.stringify(p.role)}, nationality:${JSON.stringify(p.nat)}, rarity:${JSON.stringify(p.rarity)}, image_url:'' },`
+      `    { id:${JSON.stringify(p.id)}, name:${JSON.stringify(p.name)}, team:${JSON.stringify(p.team)}, role:${JSON.stringify(p.role)}, nationality:${JSON.stringify(p.nat)}, rarity:${JSON.stringify(p.rarity)}, rank:${JSON.stringify(p.rank)}, image_url:'' },`
     );
   }
   lines_out.push('  ],');

@@ -4,18 +4,17 @@ import './PlayerCard.css';
 
 const RARITY_LABELS = { legend: 'LEGEND', rare: 'RARE', common: 'COMMON' };
 
-const FLAG_EMOJIS = {
-  AR:'🇦🇷', AU:'🇦🇺', BE:'🇧🇪', BG:'🇧🇬', BM:'🇧🇲', BR:'🇧🇷',
-  CA:'🇨🇦', CH:'🇨🇭', CL:'🇨🇱', CN:'🇨🇳', CO:'🇨🇴', CZ:'🇨🇿',
-  DE:'🇩🇪', DK:'🇩🇰', DO:'🇩🇴', EE:'🇪🇪', EG:'🇪🇬', ES:'🇪🇸',
-  FI:'🇫🇮', FR:'🇫🇷', GB:'🇬🇧', HK:'🇭🇰', HR:'🇭🇷', ID:'🇮🇩',
-  IN:'🇮🇳', IT:'🇮🇹', JP:'🇯🇵', KG:'🇰🇬', KH:'🇰🇭', KR:'🇰🇷',
-  KZ:'🇰🇿', LT:'🇱🇹', LV:'🇱🇻', MA:'🇲🇦', MD:'🇲🇩', MK:'🇲🇰',
-  MX:'🇲🇽', MY:'🇲🇾', NL:'🇳🇱', NO:'🇳🇴', PH:'🇵🇭', PL:'🇵🇱',
-  PT:'🇵🇹', RO:'🇷🇴', RS:'🇷🇸', RU:'🇷🇺', SE:'🇸🇪', SG:'🇸🇬',
-  TH:'🇹🇭', TR:'🇹🇷', TW:'🇹🇼', UA:'🇺🇦', UN:'🌐', US:'🇺🇸',
-  UZ:'🇺🇿', VN:'🇻🇳',
-};
+function FlagImg({ code }) {
+  if (!code || code === 'UN') return <span className="flag-fallback">🌐</span>;
+  return (
+    <img
+      src={`https://flagcdn.com/w40/${code.toLowerCase()}.png`}
+      alt={code}
+      className="flag-img"
+      onError={e => { e.currentTarget.style.display = 'none'; }}
+    />
+  );
+}
 
 function ChemDots({ level = 0 }) {
   return (
@@ -27,8 +26,15 @@ function ChemDots({ level = 0 }) {
   );
 }
 
+const RANK_COLOR = {
+  RADIANT:   '#ffd700',
+  IMMORTAL:  '#ef4444',
+  ASCENDANT: '#22c55e',
+  DIAMOND:   '#a855f7',
+};
+
 function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
-  const { name, team, nationality, rarity, role, seasonId, seasonLabel, seasonBadge, image_url: imageUrl } = player;
+  const { name, team, nationality, rarity, role, rank, seasonId, seasonLabel, seasonBadge, image_url: imageUrl } = player;
   const teamLogo = TEAM_LOGOS[team];
   const seasonLogo = LEAGUE_LOGOS[seasonId];
   const photoUrl = PLAYER_PHOTOS[name] || imageUrl || '';
@@ -38,7 +44,7 @@ function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
 
   return (
     <div
-      className={`player-card rarity-${rarity}`}
+      className={`player-card rarity-${rarity}${rank ? ` rank-${rank}` : ''}`}
       style={{ animationDelay: `${delay}ms` }}
     >
       <div className="player-bg" style={backgroundStyle} aria-hidden />
@@ -49,7 +55,9 @@ function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
       <span className="corner bl" />
       <span className="corner br" />
 
-      <div className="rarity-text">{RARITY_LABELS[rarity]}</div>
+      <div className="rarity-text" style={rank ? { color: RANK_COLOR[rank] } : undefined}>
+        {rank || RARITY_LABELS[rarity]}
+      </div>
 
       <div className="team-mark" aria-label={team}>
         {teamLogo ? (
@@ -67,7 +75,7 @@ function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
         <div className="art-frame" />
       </div>
 
-      <div className="nationality-mark">{FLAG_EMOJIS[nationality] || nationality}</div>
+      <div className="nationality-mark"><FlagImg code={nationality} /></div>
 
       <div className="player-name">{name}</div>
 

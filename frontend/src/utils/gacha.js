@@ -1,17 +1,18 @@
 import { allPlayers } from '../data/seasons';
 
-function pickRarity() {
+function pickRank() {
   const roll = Math.random() * 100;
-  if (roll < 25) return 'legend';
-  if (roll < 70) return 'rare';
-  return 'common';
+  if (roll < 10) return 'RADIANT';
+  if (roll < 35) return 'IMMORTAL';
+  if (roll < 70) return 'ASCENDANT';
+  return 'DIAMOND';
 }
 
 function pickOne(excludeNames) {
-  const rarity = pickRarity();
-  const byRarity = allPlayers.filter(p => p.rarity === rarity && !excludeNames.includes(p.name));
-  const fallback  = allPlayers.filter(p => !excludeNames.includes(p.name));
-  const source = byRarity.length > 0 ? byRarity : fallback;
+  const rank = pickRank();
+  const byRank = allPlayers.filter(p => p.rank === rank && !excludeNames.includes(p.name));
+  const fallback = allPlayers.filter(p => !excludeNames.includes(p.name));
+  const source = byRank.length > 0 ? byRank : fallback;
   return source[Math.floor(Math.random() * source.length)];
 }
 
