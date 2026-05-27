@@ -1,14 +1,46 @@
 // node download-player-photos.js   (프로젝트 루트에서 실행)
-const fs    = require('fs');
-const path  = require('path');
-const https = require('https');
-const zlib  = require('zlib');
+const fs     = require('fs');
+const path   = require('path');
+const https  = require('https');
+const zlib   = require('zlib');
+const crypto = require('crypto');
 
 const CSV_PATH    = path.join(__dirname, 'valorant_global_master_roster.csv');
 const OUTPUT_DIR  = path.join(__dirname, 'frontend/public/photos/players');
 const MAPPING_OUT = path.join(__dirname, 'frontend/src/data/player-photos.js');
 const DELAY_MS    = 600;   // Liquipedia API 요청 간격
 const MIN_BYTES   = 3000;
+// Liquipedia "이 선수 사진 없음" 플레이스홀더 이미지 MD5
+const PLACEHOLDER_HASHES = new Set([
+  '2086059c57b35127cb43910e6e4710ea',
+]);
+
+// 잘못된 사진이 반복 다운로드되는 선수 차단 목록
+const BLOCKED_PLAYERS = new Set([
+  'Ash',        // VCT 캐스터 사진
+  'Autumn',     // 감독 사진
+  'Klaus',      // 다른 선수 사진
+  'DK',         // TOE Gaming 로고
+  'LockM',      // TOE Gaming 로고
+  'YOU',        // TOE Gaming 로고
+  'glacier',    // 게임 캐릭터 로고
+  'KiTae',      // 아마추어챔피언스 로고
+  'kawaii',     // NDP 로고
+  'Ninebody',   // NDP 로고
+  'nzr',        // LATAM Gods 로고
+  'RgLMeister', // LATAM Gods 로고
+  'Pa1nt',      // Liquid Open 로고
+  'Paincakes',  // 팀 로고
+  'PangH',      // 팀 로고
+  'rich',       // GamersClub 로고
+  'Kess',       // Oklahoma 대학 로고
+  'Kyu',        // West Virginia 대학 로고
+  'XiYiJi',    // 중국 팀 로고
+  'Yoyo',       // K7 Esports 로고
+  'Add3r',      // Proving Grounds 토너먼트 로고
+  'echo',       // Esports Kotex 로고
+  'Egoist',     // Liquipedia 플레이스홀더
+]);
 
 const API_HEADERS = {
   'User-Agent':      'VALCARD-FanProject/1.0 (rmsdud3847@gmail.com)',
@@ -132,6 +164,8 @@ async function downloadFile(url, dest) {
   const res = await get(url, true, IMG_HEADERS);
   if (res.status !== 200) throw new Error(`HTTP ${res.status}`);
   if (res.body.length < MIN_BYTES) throw new Error(`too small (${res.body.length}B)`);
+  const hash = crypto.createHash('md5').update(res.body).digest('hex');
+  if (PLACEHOLDER_HASHES.has(hash)) throw new Error('liquipedia placeholder image');
   fs.writeFileSync(dest, res.body);
   return res.body.length;
 }
@@ -163,6 +197,11 @@ async function main() {
       mapping[name] = `/photos/players/${name}.png`;
       skip++;
       console.log(`  ${tag} SKIP     ${name}`);
+      continue;
+    }
+
+    if (BLOCKED_PLAYERS.has(name)) {
+      console.log(`  ${tag} BLOCKED  ${name}`);
       continue;
     }
 

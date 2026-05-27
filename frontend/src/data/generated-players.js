@@ -1175,7 +1175,7 @@ const GP = {
     { id:"china-st-green", name:"GREEN", team:"Nova Esports", role:"INITIATOR", nationality:"TW", rarity:"common", rank:"DIAMOND", image_url:'' },
     { id:"china-st-berlin", name:"BerLIN", team:"FunPlus Phoenix", role:"CONTROLLER", nationality:"TW", rarity:"rare", rank:"ASCENDANT", image_url:'' },
     { id:"china-st-youze", name:"Youze", team:"All Gamers", role:"DUELIST", nationality:"TW", rarity:"common", rank:"DIAMOND", image_url:'' },
-    { id:"china-st-07sep", name:"07-Sep", team:"All Gamers", role:"CONTROLLER", nationality:"CN", rarity:"common", rank:"ASCENDANT", image_url:'' },
+    { id:"china-st-septem7", name:"Septem7", team:"All Gamers", role:"CONTROLLER", nationality:"CN", rarity:"common", rank:"ASCENDANT", image_url:'' },
   ],
   "china-stage2-24": [
     { id:"china-st-abo", name:"Abo", team:"Titan Esports Club", role:"FLEX", nationality:"CN", rarity:"common", rank:"IMMORTAL", image_url:'' },
