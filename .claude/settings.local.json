@@ -18,7 +18,8 @@
       "Bash(Remove-Item \"C:\\\\Users\\\\SSAFY\\\\val\\\\frontend\\\\public\\\\photos\\\\players\\\\Add3r.png\" -Force)",
       "Bash(Remove-Item \"C:\\\\Users\\\\SSAFY\\\\val\\\\frontend\\\\public\\\\photos\\\\players\\\\echo.png\" -Force)",
       "Bash(Remove-Item \"C:\\\\Users\\\\SSAFY\\\\val\\\\frontend\\\\public\\\\photos\\\\players\\\\Egoist.png\" -Force)",
-      "Bash(Write-Output \"deleted\")"
+      "Bash(Write-Output \"deleted\")",
+      "Bash(npm install *)"
     ]
   }
 }
