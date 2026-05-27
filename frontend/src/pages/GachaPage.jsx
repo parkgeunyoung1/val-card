@@ -100,7 +100,7 @@ function CardBack() {
 }
 
 /* ── 중앙 공개 오버레이 ───────────────────────────── */
-function CenterReveal({ current, total, flipped, busy, onFlip, onNext }) {
+function CenterReveal({ current, total, flipped, busy, onFlip, onNext, onSkip }) {
   const index = total - current; // 몇 번째 카드인지
 
   function handleClick(e) {
@@ -129,9 +129,16 @@ function CenterReveal({ current, total, flipped, busy, onFlip, onNext }) {
         </div>
       </div>
 
-      {/* 힌트 */}
-      <div className="cr-hint">
-        {busy ? '' : flipped ? '클릭하여 다음' : '클릭하여 공개'}
+      {/* 힌트 + 스킵 */}
+      <div className="cr-bottom" onClick={e => e.stopPropagation()}>
+        <div className="cr-hint">
+          {busy ? '' : flipped ? '클릭하여 다음' : '클릭하여 공개'}
+        </div>
+        {!busy && (
+          <button className="cr-skip" onClick={onSkip} type="button">
+            전체 공개 ▶▶
+          </button>
+        )}
       </div>
     </div>
   );
@@ -325,6 +332,16 @@ function GachaPage() {
     setFlipped(true);
   }
 
+  /* 전체 스킵 */
+  function handleSkip() {
+    if (busy) return;
+    const all = current ? [{ card: current }, ...queue.map(c => ({ card: c }))] : [];
+    setHand(prev => [...prev, ...all]);
+    setCurrent(null);
+    setQueue([]);
+    setFlipped(false);
+  }
+
   /* 다음 카드 */
   function handleNext() {
     if (busy || !flipped) return;
@@ -384,6 +401,7 @@ function GachaPage() {
           busy={busy}
           onFlip={handleFlip}
           onNext={handleNext}
+          onSkip={handleSkip}
         />
       )}
 
