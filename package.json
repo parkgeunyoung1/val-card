@@ -1,0 +1,7 @@
+{
+  "name": "val",
+  "private": true,
+  "scripts": {
+    "generate": "node generate-seasons.js"
+  }
+}
