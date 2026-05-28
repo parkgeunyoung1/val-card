@@ -32,7 +32,8 @@
       "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"valorant_global_master_roster.csv\" -Pattern \"Derrek\" | ForEach-Object { \"$\\($_.LineNumber\\): $\\($_.Line\\)\" })",
       "PowerShell(Select-String *)",
       "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"valorant_global_master_roster.csv\" -Pattern \"derke\" | ForEach-Object { \"$\\($_.LineNumber\\): $\\($_.Line\\)\" })",
-      "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"frontend/src/data/generated-players.js\" -Pattern \"champions-seoul-24\" | Select-Object -First 5 | ForEach-Object { $_.Line.Trim\\(\\) })"
+      "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"frontend/src/data/generated-players.js\" -Pattern \"champions-seoul-24\" | Select-Object -First 5 | ForEach-Object { $_.Line.Trim\\(\\) })",
+      "Bash(git checkout *)"
     ]
   }
 }

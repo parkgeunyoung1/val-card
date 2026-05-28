@@ -285,7 +285,7 @@ function CollectionPage({ slots, setSlots, onBack }) {
         <div className="col-grid">
           {filtered.map(p => (
             <ColCard
-              key={p.name}
+              key={p.id}
               player={p}
               count={collection[p.id] || 0}
               selected={selectedCard?.name === p.name}
