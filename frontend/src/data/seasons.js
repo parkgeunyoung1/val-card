@@ -39,6 +39,7 @@ const SEASON_DEFINITIONS = [
   { id:'pacific-stage2-25',       name:'VCT 2025 Pacific Stage 2',                 short:"Pacific S2 '25", period:'2025 · 5월 · 서울',         badge:'🌏', color:'#06b6d4', description:'VCT 퍼시픽 권역 리그 2스테이지' },
   { id:'china-stage2-25',         name:'VCT 2025 China Stage 2',                   short:"China S2 '25",   period:'2025 · 5월 · 중국',         badge:'🐉', color:'#ef4444', description:'VCT 차이나 권역 리그 2스테이지' },
   { id:'masters-toronto-25',      name:'VCT 2025 Masters Toronto',                 short:"Toronto '25",    period:'2025 · 6월 · 토론토',       badge:'🎯', color:'#a855f7', description:'시즌 두 번째 국제 마스터스 대회' },
+  { id:'ewc-25',                  name:'Esports World Cup 2025: Valorant',          short:"EWC '25",        period:'2025 · 7월 · 리야드',       badge:'🌍', color:'#10b981', description:'2025 e스포츠 월드컵 발로란트 종목' },
   { id:'champions-paris-25',      name:'Valorant Champions 2025',                  short:"Champions '25",  period:'2025 · 8월 · 파리',         badge:'🏆', color:'#f59e0b', description:'전 권역 최강팀 16개가 격돌하는 연간 최대 국제대회' },
   // ── 2026 ────────────────────────────────────────────
   { id:'americas-kickoff-26',     name:'VCT 2026 Americas Kickoff',                short:"Americas KO '26", period:'2026 · 1월 · 아메리카스',  badge:'🌎', color:'#22c55e', description:'VCT 2026 아메리카스 킥오프' },

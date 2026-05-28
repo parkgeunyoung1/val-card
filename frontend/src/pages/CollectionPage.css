@@ -1,0 +1,322 @@
+.col-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #060d14;
+  background-image:
+    linear-gradient(rgba(255, 70, 85, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 70, 85, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  color: #fff;
+}
+
+.col-back-btn {
+  background: none;
+  border: 1px solid rgba(255, 70, 85, 0.3);
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.col-back-btn:hover { color: #fff; border-color: #ff4655; }
+
+/* ── Main ─────────────────────────────────────── */
+.col-main {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.col-header { margin-bottom: 20px; }
+
+.col-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+.col-title { font-size: 28px; font-weight: 900; letter-spacing: 2px; margin: 0; }
+.col-progress { font-size: 14px; color: #64748b; font-weight: 700; }
+
+.col-progress-bar { height: 4px; background: #1e293b; border-radius: 2px; overflow: hidden; }
+.col-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff4655, #f59e0b);
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+/* ── 로스터 슬롯 ───────────────────────────────── */
+.col-roster { margin-bottom: 28px; }
+
+.col-role-labels {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.col-role-label {
+  flex: 1;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #334155;
+  letter-spacing: 1.5px;
+}
+
+.col-slots-row {
+  display: flex;
+  gap: 8px;
+}
+
+.col-slot {
+  flex: 1;
+  height: 52px;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+.col-slot:hover { border-color: #334155; }
+.col-slot.active { border-color: rgba(255,70,85,0.4); background: rgba(255,70,85,0.04); }
+.col-slot.filled { background: rgba(255,255,255,0.02); }
+.col-slot.filled:hover { background: rgba(255,255,255,0.05); }
+
+.col-slot-role { font-size: 9px; font-weight: 700; color: #334155; letter-spacing: 1px; }
+.col-slot-name { font-size: 12px; font-weight: 800; }
+.col-slot-return { font-size: 11px; color: #475569; }
+.col-slot-cta { font-size: 10px; color: #ff4655; font-weight: 700; }
+
+.col-hint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #64748b;
+  text-align: center;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.col-hint-name { color: #fff; font-weight: 700; }
+
+.col-batch-btn {
+  background: #ff4655;
+  border: none;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s;
+}
+.col-batch-btn:hover { opacity: 0.85; }
+
+/* ── Year Tabs ────────────────────────────────── */
+.col-year-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.col-year-tab {
+  background: none;
+  border: 1px solid #1e293b;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 7px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.col-year-tab:hover { border-color: #334155; color: #94a3b8; }
+.col-year-tab.active { border-color: #ff4655; color: #fff; background: rgba(255,70,85,0.12); }
+
+/* ── Season Pills ─────────────────────────────── */
+.col-season-pills {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.col-season-pill {
+  background: none;
+  border: 1px solid #0f1923;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.col-season-pill:hover { border-color: #1e293b; color: #64748b; }
+.col-season-pill.active { border-color: #334155; color: #cbd5e1; background: rgba(255,255,255,0.04); }
+
+/* ── Controls ─────────────────────────────────── */
+.col-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.col-filters, .col-role-filters { display: flex; gap: 5px; flex-wrap: wrap; }
+
+.col-filter-btn {
+  background: none;
+  border: 1px solid #1e293b;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.col-filter-btn:hover { border-color: #334155; color: #94a3b8; }
+.col-filter-btn.active { border-color: #ff4655; color: #ff4655; background: rgba(255,70,85,0.08); }
+
+.col-search {
+  background: #0f1923;
+  border: 1px solid #1e293b;
+  color: #fff;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  outline: none;
+  width: 160px;
+  transition: border-color 0.2s;
+}
+.col-search::placeholder { color: #334155; }
+.col-search:focus { border-color: #334155; }
+
+.col-count-label {
+  font-size: 12px;
+  color: #475569;
+  font-weight: 600;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* ── Grid ─────────────────────────────────────── */
+.col-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 16px;
+}
+
+/* ── Card Wrap ────────────────────────────────── */
+.col-card-wrap {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s;
+  width: 168px;
+  justify-self: center;
+}
+.col-card-wrap:hover:not(.locked) { transform: translateY(-4px); }
+.col-card-wrap.locked { cursor: default; }
+.col-card-wrap.selected { transform: translateY(-6px); }
+.col-card-wrap.selected::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 12px;
+  border: 2px solid #ff4655;
+  pointer-events: none;
+}
+
+/* 미수집 실루엣 */
+.col-card-wrap.locked .player-card {
+  filter: brightness(0.12) grayscale(1);
+}
+
+/* 중복 카운트 */
+.col-count {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.8);
+  color: #f59e0b;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+/* 슬롯 배치 표시 */
+.col-order-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: #ff4655;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.col-in-slot-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #22c55e;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* ── Mobile ───────────────────────────────────────── */
+@media (max-width: 640px) {
+  .col-main     { padding: 20px 12px 48px; }
+  .col-title    { font-size: 20px; letter-spacing: 1px; }
+  .col-progress { font-size: 12px; }
+
+  /* roster slots: horizontal scroll */
+  .col-roster   { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .col-slots-row, .col-role-labels { min-width: max-content; }
+
+  /* controls */
+  .col-search   { width: 100%; flex: 1 1 100%; order: -1; }
+  .col-controls { gap: 8px; }
+  .col-count-label { margin-left: 0; }
+
+  /* chemistry SVG */
+  .chem-svg { display: none; }
+}
+
+@media (max-width: 480px) {
+  /* 2-column card grid using 140px cards */
+  .col-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+  }
+  .col-card-wrap { width: 140px; }
+}

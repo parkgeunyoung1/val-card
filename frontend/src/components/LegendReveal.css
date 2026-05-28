@@ -197,6 +197,143 @@
   50%       { opacity: 0.7; transform: scale(1.2); }
 }
 
+/* ── CHAMPION 전용 ───────────────────────────────── */
+.legend-overlay.champion {
+  background: radial-gradient(ellipse at 50% 100%, #0a0800 0%, #020206 100%);
+}
+
+.champion-badge {
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  background: linear-gradient(90deg, #ffd700, #fff, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: championBadge 1.6s ease-in-out infinite alternate;
+  z-index: 20;
+}
+@keyframes championBadge {
+  from { opacity: 0.6; letter-spacing: 8px; }
+  to   { opacity: 1;   letter-spacing: 10px; }
+}
+
+.beam-gold {
+  opacity: 0.4;
+  width: 400px;
+  mix-blend-mode: screen;
+  animation: beamPulse 1.6s ease-in-out infinite reverse;
+}
+
+.particles-gold {
+  mix-blend-mode: screen;
+}
+
+.step-flash.champion-flash {
+  background: rgba(255, 215, 0, 0.25);
+}
+
+.champion-stage {
+  animation: championCardIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes championCardIn {
+  0%   { opacity: 0; transform: scale(0.3) translateY(60px) rotate(-5deg); filter: blur(12px); }
+  60%  { transform: scale(1.12) translateY(-8px) rotate(0deg); filter: blur(0); }
+  80%  { transform: scale(0.97) translateY(2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.champion-ring {
+  position: absolute;
+  inset: -48px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 215, 0, 0.4);
+  animation: championRing 1.2s ease-out both, ringPulse 2s 1.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes championRing {
+  from { transform: scale(2); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+@keyframes ringPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0.3); }
+  50%       { box-shadow: 0 0 0 20px rgba(255,215,0,0); }
+}
+
+.card-aura-gold {
+  animation: auraPulse 1.2s 0.3s ease-in-out infinite;
+  opacity: 0.35;
+  inset: -44px;
+}
+
+/* ── CHAMPION 무지개 shimmer ─────────────────────── */
+.champion-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: linear-gradient(
+    105deg,
+    transparent 25%,
+    rgba(255, 50,  50,  0.07) 35%,
+    rgba(255, 165, 0,   0.07) 43%,
+    rgba(255, 240, 50,  0.07) 51%,
+    rgba(0,   210, 100, 0.07) 59%,
+    rgba(50,  120, 255, 0.07) 67%,
+    rgba(180, 50,  255, 0.07) 75%,
+    transparent 85%
+  );
+  background-size: 300% 100%;
+  animation: championShimmer 3s linear infinite;
+}
+@keyframes championShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* CHAMPION 스텝 무지개 텍스트 */
+@keyframes revealRainbowText {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.legend-overlay.champion .step-value,
+.legend-overlay.champion .reveal-fallback {
+  background: linear-gradient(90deg, #ff4444, #ff8800, #ffff00, #00ee88, #4488ff, #cc44ff, #ff4444);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: revealRainbowText 2s linear infinite;
+}
+
+/* CHAMPION 스텝 등장 — 더 드라마틱 */
+.legend-overlay.champion .reveal-step.entering {
+  animation: championStepIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.legend-overlay.champion .reveal-step.exiting {
+  animation: championStepOut 0.32s ease-in both;
+}
+@keyframes championStepIn {
+  from {
+    opacity: 0;
+    transform: scale(0.65) translateY(36px) rotate(-5deg);
+    filter: blur(16px) brightness(3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+    filter: blur(0) brightness(1);
+  }
+}
+@keyframes championStepOut {
+  from { opacity: 1; transform: scale(1); filter: blur(0); }
+  to   { opacity: 0; transform: scale(1.18) translateY(-22px); filter: blur(10px); }
+}
+
 /* ── SKIP 버튼 ───────────────────────────────────── */
 .skip-btn {
   position: absolute;

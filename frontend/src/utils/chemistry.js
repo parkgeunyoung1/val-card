@@ -24,7 +24,7 @@ const FLAG = {
 function region(team) { return TEAM_REGION[team] || ''; }
 
 // 케미스트리 계산
-// 연결 타입 우선순위: perfect(팀+시즌) > team > season > nationality > region
+// 연결 타입 우선순위: team(3pt) > season(2pt) > nationality(1pt)
 export function calcChemistry(slots) {
   const cards = slots;
   const connections = [];
@@ -34,28 +34,17 @@ export function calcChemistry(slots) {
       const a = cards[i], b = cards[j];
       if (!a || !b) continue;
 
-      const sameTeam   = a.team === b.team;
-      const sameSeason = a.seasonId === b.seasonId;
-
-      if (sameTeam && sameSeason) {
-        connections.push({ from: i, to: j, type: 'perfect' });
-      } else if (sameTeam) {
+      if (a.team === b.team) {
         connections.push({ from: i, to: j, type: 'team' });
-      } else if (sameSeason) {
+      } else if (a.seasonId === b.seasonId) {
         connections.push({ from: i, to: j, type: 'season' });
       } else if (a.nationality === b.nationality) {
         connections.push({ from: i, to: j, type: 'nationality' });
-      } else if (region(a.team) && region(a.team) === region(b.team)) {
-        connections.push({ from: i, to: j, type: 'region' });
       }
     }
   }
 
-  // 플레이어별 케미 (최대 3)
-  // perfect: 3pt → 1연결만으로 만점
-  // team/season: 1.5pt → 2연결이면 만점
-  // nationality: 1pt / region: 0.5pt
-  const POINTS = { perfect: 3, team: 1.5, season: 1.5, nationality: 1, region: 0.5 };
+  const POINTS = { team: 3, season: 2, nationality: 1 };
   const playerChem = Array(5).fill(0);
   for (const { from, to, type } of connections) {
     const pts = POINTS[type];
@@ -103,9 +92,5 @@ export function calcChemistry(slots) {
       badges.push({ icon: flag, label: name, count: cnt, type: 'nationality' });
     }
   }
-  for (const [reg, cnt] of Object.entries(regionCount)) {
-    if (cnt >= 3) badges.push({ icon: '⚡', label: reg, count: cnt, type: 'region' });
-  }
-
   return { connections, playerChem, total, grade, badges };
 }

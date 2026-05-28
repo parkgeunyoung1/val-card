@@ -3,17 +3,7 @@ import PlayerCard from './PlayerCard';
 import { TEAM_LOGOS, LEAGUE_LOGOS } from '../data/logos';
 import './LegendReveal.css';
 
-const TEAM_REGION = {
-  'Sentinels': 'VCT Americas',    'NRG': 'VCT Americas',
-  'Evil Geniuses': 'VCT Americas','100 Thieves': 'VCT Americas',
-  'M80': 'VCT Americas',          'KRÜ Esports': 'VCT Americas',
-  'LOUD': 'VCT Americas',         'Cloud9': 'VCT Americas',
-  'Fnatic': 'VCT EMEA',           'Team Liquid': 'VCT EMEA',
-  'Team Vitality': 'VCT EMEA',    'NaVi': 'VCT EMEA',
-  'Guild Esports': 'VCT EMEA',
-  'ZETA DIVISION': 'VCT Pacific', 'DRX': 'VCT Pacific',
-};
-const RARITY_COLOR = { legend:'#f59e0b', rare:'#60a5fa', common:'#94a3b8' };
+const RANK_COLOR = { CHAMPION:'#ffffff', RADIANT:'#ffd700' };
 
 function buildSteps(player) {
   const steps = [];
@@ -29,20 +19,20 @@ function buildSteps(player) {
   return steps;
 }
 
-function Particles({ color }) {
-  const list = useMemo(() => Array.from({ length: 18 }, (_, i) => ({
+function Particles({ color, count = 18, className = 'particles' }) {
+  const list = useMemo(() => Array.from({ length: count }, (_, i) => ({
     id: i,
-    left:     `${4 + (i * 5.4) % 92}%`,
-    delay:    `${(i * 0.21) % 3}s`,
-    duration: `${2.2 + (i * 0.28) % 2.2}s`,
-    size:     `${3 + (i * 2.3) % 7}px`,
-  })), []);
+    left:     `${4 + (i * (92 / count)) % 92}%`,
+    delay:    `${(i * 0.18) % 3}s`,
+    duration: `${1.8 + (i * 0.22) % 2.4}s`,
+    size:     `${3 + (i * 2.1) % 8}px`,
+  })), [count]);
 
   return (
-    <div className="particles" aria-hidden>
+    <div className={className} aria-hidden>
       {list.map(p => (
         <span key={p.id} className="particle"
-          style={{ left: p.left, animationDelay: p.delay, animationDuration: p.duration, width: p.size, height: p.size, background: color, boxShadow: `0 0 5px ${color}` }}
+          style={{ left: p.left, animationDelay: p.delay, animationDuration: p.duration, width: p.size, height: p.size, background: color, boxShadow: `0 0 6px ${color}` }}
         />
       ))}
     </div>
@@ -58,7 +48,8 @@ function LegendReveal({ player, onComplete }) {
   const doneRef = useRef(false);
 
   const steps = buildSteps(player);
-  const color = RARITY_COLOR[player.rarity] || '#fff';
+  const isChampion = player.rank === 'CHAMPION';
+  const color = RANK_COLOR[player.rank] || '#ffd700';
 
   useEffect(() => {
     const imageSources = [LEAGUE_LOGOS[player.seasonId], TEAM_LOGOS[player.team]].filter(Boolean);
@@ -96,8 +87,7 @@ function LegendReveal({ player, onComplete }) {
     let t;
 
     if (phase === 'in') {
-      // 650ms 보여준 뒤 exit
-      t = setTimeout(() => setPhase('out'), 650);
+      t = setTimeout(() => setPhase('out'), isChampion ? 900 : 650);
     } else {
       // exit 후 → 플래시 → 다음 스텝
       t = setTimeout(() => {
@@ -109,7 +99,7 @@ function LegendReveal({ player, onComplete }) {
             setPhase('in');
           } else {
             setShowCard(true);
-            setTimeout(complete, 3000); // 카드 보고 3초 후 자동 종료
+            setTimeout(complete, isChampion ? 30000 : 3000);
           }
         }, 120);
       }, 280);
@@ -126,7 +116,7 @@ function LegendReveal({ player, onComplete }) {
       return (
         <div key={`${stepIndex}-${phase}-${step.type}`} className={`reveal-step ${phase === 'in' ? 'entering' : 'exiting'} xl`}>
           <span className="step-label">{step.label}</span>
-          <span className="step-value reveal-role" style={{ color, textShadow: `0 0 32px ${color}88` }}>
+          <span className="step-value reveal-role" style={isChampion ? {} : { color, textShadow: `0 0 32px ${color}88` }}>
             {step.value}
           </span>
         </div>
@@ -139,7 +129,7 @@ function LegendReveal({ player, onComplete }) {
           {step.image ? (
             <img key={step.image} src={step.image} alt={step.label} className="reveal-logo" />
           ) : (
-            <span key={step.fallback} className="reveal-fallback" style={{ color, textShadow: `0 0 32px ${color}88` }}>{step.fallback}</span>
+            <span key={step.fallback} className="reveal-fallback" style={isChampion ? {} : { color, textShadow: `0 0 32px ${color}88` }}>{step.fallback}</span>
           )}
         </div>
         <span className="step-label">{step.type === 'season' ? 'SEASON' : 'TEAM'}</span>
@@ -148,11 +138,22 @@ function LegendReveal({ player, onComplete }) {
   }
 
   return (
-    <div className="legend-overlay" onClick={handleSkip}>
-      {/* 배경 */}
+    <div className={`legend-overlay${isChampion ? ' champion' : ''}`} onClick={handleSkip}>
+      {/* 배경 빛줄기 */}
       <div className="beam" style={{ '--bcolor': color }} />
-      <Particles color={color} />
-      {flash && <div className="step-flash" />}
+      {isChampion && <div className="beam beam-gold" style={{ '--bcolor': '#ffd700' }} />}
+
+      {/* 파티클 */}
+      <Particles color={color} count={isChampion ? 36 : 18} />
+      {isChampion && <Particles color="#ffd700" count={20} className="particles particles-gold" />}
+
+      {flash && <div className={`step-flash${isChampion ? ' champion-flash' : ''}`} />}
+
+      {/* CHAMPION 전용 상단 뱃지 */}
+      {isChampion && !showCard && (
+        <div className="champion-badge">CHAMPION</div>
+      )}
+      {isChampion && !showCard && <div className="champion-shimmer" />}
 
       {/* SKIP 버튼 */}
       <button className="skip-btn" onClick={e => { e.stopPropagation(); handleSkip(); }}>
@@ -163,8 +164,10 @@ function LegendReveal({ player, onComplete }) {
 
       {/* 카드 등장 */}
       {showCard && (
-        <div className="card-stage" onClick={e => { e.stopPropagation(); complete(); }}>
+        <div className={`card-stage${isChampion ? ' champion-stage' : ''}`} onClick={e => { e.stopPropagation(); complete(); }}>
+          {isChampion && <div className="champion-ring" />}
           <div className="card-aura" style={{ '--acolor': color }} />
+          {isChampion && <div className="card-aura card-aura-gold" style={{ '--acolor': '#ffd700' }} />}
           <PlayerCard player={player} delay={0} />
         </div>
       )}

@@ -50,6 +50,7 @@ const SEASON_ID_MAP = {
   'VCT 2026: EMEA Stage 1':                  'emea-stage1-26',
   'VCT 2026: Pacific Stage 1':              'pacific-stage1-26',
   'VCT 2026: China Stage 1':                 'china-stage1-26',
+  'Esports World Cup 2025: Valorant':        'ewc-25',
 };
 
 // ── 선수 포지션 (알려진 선수 기준) ─────────────────────
@@ -154,13 +155,11 @@ const EVENT_TIERS = {
   'emea-stage1-26':          { legend:['Fnatic','Team Vitality'],              rare:['Team Liquid','NaVi'] },
   'pacific-stage1-26':       { legend:['T1','DRX'],                            rare:['ZETA DIVISION','Gen.G'] },
   'china-stage1-26':         { legend:['EDward Gaming','Bilibili Gaming'],     rare:['FunPlus Phoenix'] },
+  // ── EWC ──
+  'ewc-25':                  { legend:['Team Heretics','Fnatic'],              rare:['Gen.G','Paper Rex','Karmine Corp','Sentinels','NRG','BBL Esports'] },
 };
 
-function getRarity(seasonId, team) {
-  const tier = EVENT_TIERS[seasonId];
-  if (!tier) return 'common';
-  if (tier.legend.includes(team)) return 'legend';
-  if (tier.rare.includes(team)) return 'rare';
+function getRarity() {
   return 'common';
 }
 
@@ -174,7 +173,7 @@ function getRoleRoundRobin(team) {
   return role;
 }
 
-const GRADE_TO_RANK = { A:'RADIANT', B:'IMMORTAL', C:'ASCENDANT', D:'DIAMOND' };
+const GRADE_TO_RANK = { CHAMPION:'CHAMPION', A:'RADIANT', B:'IMMORTAL', C:'ASCENDANT', D:'DIAMOND' };
 
 // ── CSV 파싱 ────────────────────────────────────────────
 const csvPath = path.join(__dirname, 'valorant_global_master_roster.csv');
@@ -197,9 +196,20 @@ for (const line of lines) {
   const role   = csvRole   || PLAYER_ROLES[ign] || getRoleRoundRobin(team);
   const rank   = GRADE_TO_RANK[csvGrade] || '';
   const rarity = getRarity(seasonId, team);
-  const id = `${seasonId.slice(0,8)}-${ign.toLowerCase().replace(/[^a-z0-9]/g,'')}`;
+  const rankSuffix = rank ? `-${rank.toLowerCase()}` : '';
+  const id = `${seasonId}-${ign.toLowerCase().replace(/[^a-z0-9]/g,'')}${rankSuffix}`;
 
   bySeasonId[seasonId].push({ id, name: ign, team, role, nat: nat || 'US', rarity, rank });
+}
+
+// 완전 동일한 카드(같은 시즌+선수+랭크) 중복만 제거
+for (const sid of Object.keys(bySeasonId)) {
+  const seen = new Set();
+  bySeasonId[sid] = bySeasonId[sid].filter(p => {
+    if (seen.has(p.id)) return false;
+    seen.add(p.id);
+    return true;
+  });
 }
 
 // ── JS 파일 생성 ─────────────────────────────────────────

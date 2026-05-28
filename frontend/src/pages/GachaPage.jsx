@@ -1,8 +1,9 @@
-import { useState, useRef } from 'react';
-import { pull15 } from '../utils/gacha';
+import { useState, useRef, useEffect } from 'react';
+import { pullN } from '../utils/gacha';
 import { calcChemistry } from '../utils/chemistry';
-import { SEASON_DEFINITIONS, allPlayers } from '../data/seasons';
+import { getTokens, spendTokens, addToCollection, msUntilNextRefill, PULL_COST, FIRST_PULL_COST, FIRST_PULL_COUNT, PULL_COUNT, MAX_TOKENS, isFirstPull, markFirstPullDone } from '../utils/collection';
 import PlayerCard from '../components/PlayerCard';
+import TeamSlot from '../components/TeamSlot';
 import LegendReveal from '../components/LegendReveal';
 import './GachaPage.css';
 
@@ -13,8 +14,8 @@ const SVG_W = 5 * CARD_W + 4 * GAP;
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-const LINE_COLOR  = { team: '#f59e0b', nationality: '#60a5fa', region: '#475569' };
-const LINE_W      = { team: 2.5, nationality: 2, region: 1.5 };
+const LINE_COLOR  = { team: '#f59e0b', season: '#a78bfa', nationality: '#60a5fa' };
+const LINE_W      = { team: 2.5, season: 2, nationality: 1.5 };
 const GRADE_COLOR = { S:'#f59e0b', A:'#a78bfa', B:'#60a5fa', C:'#94a3b8', D:'#475569' };
 
 /* ── Chemistry ───────────────────────────────────── */
@@ -60,29 +61,6 @@ function ChemPanel({ chem }) {
   );
 }
 
-/* ── 팀 슬롯 ─────────────────────────────────────── */
-function TeamSlot({ card, role, active, chemLevel, onClick }) {
-  if (card) {
-    return (
-      <div className="filled-slot" onClick={onClick}>
-        <PlayerCard player={card} delay={0} chemLevel={chemLevel} />
-        <div className="slot-return-overlay">
-          <span className="reroll-icon">↩</span>
-          <span className="reroll-text">패로 돌리기</span>
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className={`empty-slot${active ? ' active' : ''}`} onClick={onClick}>
-      <span className="corner tl" /><span className="corner tr" />
-      <span className="corner bl" /><span className="corner br" />
-      <div className="slot-question">?</div>
-      <div className="slot-role">{role}</div>
-      {active && <div className="slot-cta">여기에 배치</div>}
-    </div>
-  );
-}
 
 /* ── 카드 뒷면 ───────────────────────────────────── */
 function CardBack() {
@@ -156,122 +134,15 @@ function HandCard({ item, selected, onSelect }) {
   );
 }
 
-/* ── 시즌 모달 ────────────────────────────────────── */
-const ACTIVE_IDS = new Set(allPlayers.map(p => p.seasonId));
-const ACTIVE_SEASONS = SEASON_DEFINITIONS.filter(s => ACTIVE_IDS.has(s.id));
-const SEASONS_BY_YEAR = ACTIVE_SEASONS.reduce((acc, s) => {
-  const year = s.period.match(/(\d{4})/)?.[1] || '?';
-  (acc[year] = acc[year] || []).push(s);
-  return acc;
-}, {});
 
-function getSeasonLogo(id) {
-  if (id.includes('lock-in'))   return '/logos/leagues/vct-lock-in-23.png';
-  if (id.includes('americas'))  return '/logos/leagues/vct-americas.png';
-  if (id.includes('emea'))      return '/logos/leagues/vct-emea.png';
-  if (id.includes('pacific'))   return '/logos/leagues/vct-pacific.png';
-  if (id.includes('china'))     return '/logos/leagues/vct-china.png';
-  if (id.includes('masters'))   return '/logos/leagues/vct-masters-2025.png';
-  if (id.includes('champions')) return '/logos/leagues/vct-champions-2025.png';
-  return null;
-}
-
-function SeasonGrid({ selected, onChange }) {
-  function toggle(id) {
-    onChange(prev => prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]);
-  }
-  function toggleYear(ids) {
-    const allSel = ids.every(id => selected.includes(id));
-    if (allSel) onChange(prev => prev.filter(id => !ids.includes(id)));
-    else onChange(prev => [...new Set([...prev, ...ids])]);
-  }
-  return (
-    <div className="sg-body">
-      {Object.entries(SEASONS_BY_YEAR).map(([year, seasons]) => {
-        const ids = seasons.map(s => s.id);
-        const allSel = ids.every(id => selected.includes(id));
-        const someSel = !allSel && ids.some(id => selected.includes(id));
-        return (
-          <div key={year} className="sg-year-block">
-            <button
-              className={`sg-year-tag${allSel ? ' all' : someSel ? ' some' : ''}`}
-              onClick={() => toggleYear(ids)}
-              type="button"
-            >
-              {year}
-            </button>
-            <div className="sg-cards">
-              {seasons.map(s => {
-                const sel = selected.includes(s.id);
-                const logo = getSeasonLogo(s.id);
-                return (
-                  <button
-                    key={s.id}
-                    className={`sg-card${sel ? ' selected' : ''}`}
-                    style={{ '--sc': s.color }}
-                    onClick={() => toggle(s.id)}
-                    type="button"
-                    title={s.name}
-                  >
-                    {logo
-                      ? <img src={logo} alt="" className="sg-logo" />
-                      : <span className="sg-badge">{s.badge}</span>
-                    }
-                    <span className="sg-name">{s.short}</span>
-                    {sel && <span className="sg-check">✓</span>}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function SeasonModal({ selected, onChange, disabled }) {
-  const [open, setOpen] = useState(false);
-  const isAll = selected.length === 0;
-  const label = isAll ? '전체 시즌' : `${selected.length}개 시즌 선택`;
-
-  return (
-    <>
-      <button
-        className="season-modal-trigger"
-        onClick={() => !disabled && setOpen(true)}
-        disabled={disabled}
-        type="button"
-      >
-        <span className="smt-label">{label}</span>
-        <span className="smt-arrow">▾</span>
-      </button>
-      {open && (
-        <div className="season-modal-overlay" onClick={() => setOpen(false)}>
-          <div className="season-modal-panel" onClick={e => e.stopPropagation()}>
-            <div className="season-modal-header">
-              <span className="smh-title">시즌 선택</span>
-              <div className="smh-actions">
-                <button
-                  className={`sg-all-btn${isAll ? ' active' : ''}`}
-                  onClick={() => onChange([])}
-                  type="button"
-                >
-                  {isAll ? '전체 선택됨' : '전체 초기화'}
-                </button>
-                <button className="smh-close" onClick={() => setOpen(false)} type="button">✕</button>
-              </div>
-            </div>
-            <SeasonGrid selected={selected} onChange={onChange} />
-          </div>
-        </div>
-      )}
-    </>
-  );
+function fmt(ms) {
+  const s = Math.ceil(ms / 1000);
+  const m = Math.floor(s / 60), r = s % 60;
+  return `${m}:${String(r).padStart(2, '0')}`;
 }
 
 /* ── 메인 ────────────────────────────────────────── */
-function GachaPage() {
+function GachaPage({ onGoCollection, slots, setSlots }) {
   // 중앙 공개 관련
   const [queue,      setQueue]      = useState([]);
   const [current,    setCurrent]    = useState(null);
@@ -279,18 +150,30 @@ function GachaPage() {
   const [total,      setTotal]      = useState(0);
   const [revealKey,  setRevealKey]  = useState(0); // 카드마다 다른 key → 새 마운트
 
-  // 시즌 선택
-  const [selectedSeasons, setSelectedSeasons] = useState([]); // 빈 배열 = 전체
-
   // 손패 & 슬롯
   const [hand,        setHand]        = useState([]);
-  const [slots,       setSlots]       = useState(Array(5).fill(null));
   const [selectedIdx, setSelectedIdx] = useState(null);
 
   // 연출
   const [revealCard, setRevealCard] = useState(null);
   const [busy,       setBusy]       = useState(false);
   const resolveRef = useRef(null);
+
+  // 뽑기권
+  const [tokens,    setTokens]    = useState(getTokens);
+  const [countdown, setCountdown] = useState(msUntilNextRefill);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      const t = getTokens();
+      setTokens(t);
+      setCountdown(msUntilNextRefill());
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  // 뽑기 완료된 카드들 (스킵 or 마지막 카드 후)
+  const pulledCardsRef = useRef([]);
 
   const chem      = slots.some(Boolean) ? calcChemistry(slots) : null;
   const allFilled = slots.every(Boolean);
@@ -304,7 +187,15 @@ function GachaPage() {
   /* 뽑기 */
   function handlePull() {
     if (dealing || busy) return;
-    const cards = pull15(selectedSeasons);
+    const first = isFirstPull();
+    const cost  = first ? FIRST_PULL_COST : PULL_COST;
+    const count = first ? FIRST_PULL_COUNT : PULL_COUNT;
+    if (tokens < cost) return;
+    if (!spendTokens(cost)) return;
+    if (first) markFirstPullDone();
+    setTokens(getTokens());
+    const cards = pullN(count);
+    pulledCardsRef.current = [];
     setHand([]);
     setSlots(Array(5).fill(null));
     setSelectedIdx(null);
@@ -319,7 +210,7 @@ function GachaPage() {
   async function handleFlip() {
     if (busy || flipped) return;
     const card = current;
-    if (card.rank === 'RADIANT') {
+    if (card.rank === 'RADIANT' || card.rank === 'CHAMPION') {
       setBusy(true);
       setRevealCard(card);
       await new Promise(resolve => { resolveRef.current = resolve; });
@@ -335,8 +226,10 @@ function GachaPage() {
   /* 전체 스킵 */
   function handleSkip() {
     if (busy) return;
-    const all = current ? [{ card: current }, ...queue.map(c => ({ card: c }))] : [];
-    setHand(prev => [...prev, ...all]);
+    const remaining = current ? [current, ...queue] : [];
+    addToCollection([...pulledCardsRef.current, ...remaining]);
+    pulledCardsRef.current = [];
+    setHand(prev => [...prev, ...remaining.map(c => ({ card: c }))]);
     setCurrent(null);
     setQueue([]);
     setFlipped(false);
@@ -345,6 +238,7 @@ function GachaPage() {
   /* 다음 카드 */
   function handleNext() {
     if (busy || !flipped) return;
+    pulledCardsRef.current.push(current);
     setHand(prev => [...prev, { card: current }]);
     setRevealKey(k => k + 1);
     if (queue.length > 0) {
@@ -352,6 +246,8 @@ function GachaPage() {
       setQueue(q => q.slice(1));
       setFlipped(false);
     } else {
+      addToCollection(pulledCardsRef.current);
+      pulledCardsRef.current = [];
       setCurrent(null);
       setQueue([]);
       setFlipped(false);
@@ -410,6 +306,17 @@ function GachaPage() {
           <span className="logo-val">VAL</span>
           <span className="logo-card">CARD</span>
         </div>
+        <div className="header-right">
+          <div className="token-display">
+            <span className="token-icon">⚡</span>
+            <span className="token-count">{tokens}</span>
+            <span className="token-max">/{isFirstPull() ? FIRST_PULL_COST : MAX_TOKENS}</span>
+            {tokens < (isFirstPull() ? FIRST_PULL_COST : MAX_TOKENS) && (
+              <span className="token-timer">{fmt(countdown)}</span>
+            )}
+          </div>
+          <button className="col-nav-btn" onClick={onGoCollection} type="button">도감</button>
+        </div>
       </header>
 
       <main className="gacha-main">
@@ -439,29 +346,32 @@ function GachaPage() {
           {allFilled && chem && <ChemPanel chem={chem} />}
         </div>
 
-        {/* ── 시즌 선택 ── */}
-        <SeasonModal
-          selected={selectedSeasons}
-          onChange={setSelectedSeasons}
-          disabled={dealing || busy}
-        />
-
         {/* ── 뽑기 버튼 ── */}
         <div className="pull-actions">
-          <button
-            className={`btn-summon${dealing ? ' loading' : ''}`}
-            onClick={handlePull}
-            disabled={dealing || busy}
-          >
-            <span className="btn-icon">⚡</span>
-            {dealing ? 'REVEALING...' : 'PULL 15'}
-          </button>
+          {(() => {
+            const first = isFirstPull();
+            const cost  = first ? FIRST_PULL_COST : PULL_COST;
+            const count = first ? FIRST_PULL_COUNT : PULL_COUNT;
+            const lack  = tokens < cost;
+            return (
+              <button
+                className={`btn-summon${dealing ? ' loading' : ''}`}
+                onClick={handlePull}
+                disabled={dealing || busy || lack}
+              >
+                <span className="btn-icon">⚡</span>
+                {dealing ? 'REVEALING...' : lack ? `뽑기권 부족 (${tokens}/${cost})` : `PULL ${count}${first ? ' ✦초회' : ''}`}
+              </button>
+            );
+          })()}
         </div>
 
         <div className="rate-info">
-          <span className="rate legend">RADIANT 10%</span>
+          <span className="rate legend">CHAMPION 1%</span>
           <span className="rate-dot" />
-          <span className="rate rare">IMMORTAL 25%</span>
+          <span className="rate legend">RADIANT 7%</span>
+          <span className="rate-dot" />
+          <span className="rate rare">IMMORTAL 27%</span>
           <span className="rate-dot" />
           <span className="rate common">ASCENDANT 35%</span>
           <span className="rate-dot" />

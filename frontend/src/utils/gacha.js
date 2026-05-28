@@ -2,7 +2,8 @@ import { allPlayers } from '../data/seasons';
 
 function pickRank() {
   const roll = Math.random() * 100;
-  if (roll < 10) return 'RADIANT';
+  if (roll < 1)  return 'CHAMPION';
+  if (roll < 8)  return 'RADIANT';
   if (roll < 35) return 'IMMORTAL';
   if (roll < 70) return 'ASCENDANT';
   return 'DIAMOND';
@@ -16,12 +17,12 @@ function pickOne(pool, excludeNames) {
   return source[Math.floor(Math.random() * source.length)];
 }
 
-export function pull15(seasonIds = []) {
+export function pullN(count, seasonIds = []) {
   const pool = seasonIds.length > 0
     ? allPlayers.filter(p => seasonIds.includes(p.seasonId))
     : allPlayers;
   const usedNames = [];
-  return Array.from({ length: 15 }, () => {
+  return Array.from({ length: count }, () => {
     const card = pickOne(pool, usedNames);
     if (card) usedNames.push(card.name);
     return card;

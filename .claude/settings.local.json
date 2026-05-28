@@ -19,7 +19,20 @@
       "Bash(Remove-Item \"C:\\\\Users\\\\SSAFY\\\\val\\\\frontend\\\\public\\\\photos\\\\players\\\\echo.png\" -Force)",
       "Bash(Remove-Item \"C:\\\\Users\\\\SSAFY\\\\val\\\\frontend\\\\public\\\\photos\\\\players\\\\Egoist.png\" -Force)",
       "Bash(Write-Output \"deleted\")",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(curl -s http://localhost:5174)",
+      "Bash(npx vite *)",
+      "Bash(python3 *)",
+      "Bash(dir C:\\\\Users\\\\SSAFY\\\\val\\\\*.js /b)",
+      "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"frontend/src/data/seasons.js\" -Pattern \"allPlayers|export\" | Select-Object -First 10 | ForEach-Object { \"$\\($_.LineNumber\\): $\\($_.Line.Trim\\(\\)\\)\" })",
+      "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"frontend/src/pages/GachaPage.css\" -Pattern \"@media\" | ForEach-Object { \"$\\($_.LineNumber\\): $\\($_.Line.Trim\\(\\)\\)\" })",
+      "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"frontend/src/data/generated-players.js\" -Pattern '\"aspas\"' | Select-Object -First 10 | ForEach-Object { $_.Line.Trim\\(\\) })",
+      "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"generate-seasons.js\" -Pattern \"\\\\.id|id:\" | Select-Object -First 20 | ForEach-Object { \"$\\($_.LineNumber\\): $\\($_.Line.Trim\\(\\)\\)\" })",
+      "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"frontend/src/data/generated-players.js\" -Pattern '\"americas-kickoff-24-aspas\"' | Select-Object -First 1 | ForEach-Object { $_.Line.Trim\\(\\) })",
+      "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"valorant_global_master_roster.csv\" -Pattern \"Derrek\" | ForEach-Object { \"$\\($_.LineNumber\\): $\\($_.Line\\)\" })",
+      "PowerShell(Select-String *)",
+      "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"valorant_global_master_roster.csv\" -Pattern \"derke\" | ForEach-Object { \"$\\($_.LineNumber\\): $\\($_.Line\\)\" })",
+      "PowerShell(cd C:\\\\Users\\\\SSAFY\\\\val; Select-String -Path \"frontend/src/data/generated-players.js\" -Pattern \"champions-seoul-24\" | Select-Object -First 5 | ForEach-Object { $_.Line.Trim\\(\\) })"
     ]
   }
 }

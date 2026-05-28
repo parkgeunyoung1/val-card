@@ -2342,7 +2342,7 @@ VCT 2026: Pacific Kickoff,ZETA DIVISION,SugarZ3ro,JP,CONTROLLER,C
 VCT 2026: Pacific Kickoff,T1,Munchkin,KR,CONTROLLER,C
 VCT 2026: Pacific Kickoff,VL,Zexy,KR,DUELIST,C
 VCT 2026: Pacific Kickoff,T1,BuZz,KR,DUELIST,B
-VCT 2026: Pacific Kickoff,VL,Klaus,KR,DUELIST,C
+VCT 2026: Pacific Kickoff,VL,Klaus KR,KR,DUELIST,C
 VCT 2026: Pacific Kickoff,Global Esports,UdoTan,KR,SENTINEL,B
 VCT 2026: Pacific Kickoff,Gen.G,t3xture,KR,DUELIST,B
 VCT 2026: Pacific Kickoff,Kiwoom DRX,BeYN,KR,INITIATOR,C
@@ -2613,7 +2613,7 @@ VCT 2026: Pacific Stage 1,Kiwoom DRX,free1ng,KR,DUELIST,C
 VCT 2026: Pacific Stage 1,ZETA DIVISION,SugarZ3ro,JP,CONTROLLER,C
 VCT 2026: Pacific Stage 1,ZETA DIVISION,eKo,KR,DUELIST,C
 VCT 2026: Pacific Stage 1,Team Secret,JessieVash,PH,INITIATOR,C
-VCT 2026: Pacific Stage 1,VL,Klaus,KR,DUELIST,D
+VCT 2026: Pacific Stage 1,VL,Klaus KR,KR,DUELIST,D
 VCT 2026: Pacific Stage 1,ZETA DIVISION,Xdll,JP,INITIATOR,D
 VCT 2026: Pacific Stage 1,VL,Zexy,KR,DUELIST,D
 VCT 2026: Pacific Stage 1,VL,C1ndeR,KR,CONTROLLER,D
@@ -2813,3 +2813,319 @@ VCT 2026: China Stage 1,Nova Esports,GREEN,TW,INITIATOR,D
 VCT 2026: China Stage 1,FunPlus Phoenix,BerLIN,TW,CONTROLLER,C
 VCT 2026: China Stage 1,All Gamers,Youze,TW,DUELIST,D
 VCT 2026: China Stage 1,All Gamers,Septem7,CN,CONTROLLER,C
+
+Champions Tour 2023: LOCK//IN São Paulo,Fnatic,Leo,SE,INITIATOR,CHAMPION
+Champions Tour 2023: LOCK//IN São Paulo,Fnatic,Derke,FI,DUELIST,CHAMPION
+Champions Tour 2023: LOCK//IN São Paulo,Fnatic,Chronicle,RU,INITIATOR,CHAMPION
+Champions Tour 2023: LOCK//IN São Paulo,Fnatic,Alfajer,TR,SENTINEL,CHAMPION
+Champions Tour 2023: LOCK//IN São Paulo,Fnatic,Boaster,GB,CONTROLLER,CHAMPION
+Champions Tour 2023: Americas League,LOUD,aspas,BR,DUELIST,CHAMPION
+Champions Tour 2023: Americas League,LOUD,Less,BR,SENTINEL,CHAMPION
+Champions Tour 2023: Americas League,LOUD,cauanzin,BR,INITIATOR,CHAMPION
+Champions Tour 2023: Americas League,LOUD,tuyz,BR,CONTROLLER,CHAMPION
+Champions Tour 2023: Americas League,LOUD,saadhak,AR,INITIATOR,CHAMPION
+Champions Tour 2023: EMEA League,Team Liquid,Sayf,SE,DUELIST,CHAMPION
+Champions Tour 2023: EMEA League,Team Liquid,nAts,RU,SENTINEL,CHAMPION
+Champions Tour 2023: EMEA League,Team Liquid,Jamppi,FI,INITIATOR,CHAMPION
+Champions Tour 2023: EMEA League,Team Liquid,soulcas,GB,INITIATOR,CHAMPION
+Champions Tour 2023: EMEA League,Team Liquid,Redgar,RU,CONTROLLER,CHAMPION
+Champions Tour 2023: EMEA League,Team Liquid,Harmii,DE,DUELIST,CHAMPION
+Champions Tour 2023: Pacific League,Paper Rex,something,RU,DUELIST,CHAMPION
+Champions Tour 2023: Pacific League,Paper Rex,d4v41,MY,INITIATOR,CHAMPION
+Champions Tour 2023: Pacific League,Paper Rex,Benkai,SG,SENTINEL,CHAMPION
+Champions Tour 2023: Pacific League,Paper Rex,Jinggg,SG,DUELIST,CHAMPION
+Champions Tour 2023: Pacific League,Paper Rex,f0rsakeN,ID,DUELIST,CHAMPION
+Champions Tour 2023: Pacific League,Paper Rex,mindfreak,ID,CONTROLLER,CHAMPION
+Champions Tour 2023: Masters Tokyo,Fnatic,Alfajer,TR,SENTINEL,CHAMPION
+Champions Tour 2023: Masters Tokyo,Fnatic,Leo,SE,INITIATOR,CHAMPION
+Champions Tour 2023: Masters Tokyo,Fnatic,Chronicle,RU,INITIATOR,CHAMPION
+Champions Tour 2023: Masters Tokyo,Fnatic,Derke,FI,DUELIST,CHAMPION
+Champions Tour 2023: Masters Tokyo,Fnatic,Boaster,GB,CONTROLLER,CHAMPION
+Valorant Champions 2023,Evil Geniuses,Demon1,US,FLEX,CHAMPION
+Valorant Champions 2023,Evil Geniuses,jawgemo,KH,CONTROLLER,CHAMPION
+Valorant Champions 2023,Evil Geniuses,Ethan,US,INITIATOR,CHAMPION
+Valorant Champions 2023,Evil Geniuses,C0M,US,INITIATOR,CHAMPION
+Valorant Champions 2023,Evil Geniuses,Boostio,US,SENTINEL,CHAMPION
+Champions Tour 2024: Americas Kickoff,Sentinels,zekken,US,DUELIST,CHAMPION
+Champions Tour 2024: Americas Kickoff,Sentinels,TenZ,CA,FLEX,CHAMPION
+Champions Tour 2024: Americas Kickoff,Sentinels,Zellsis,US,SENTINEL,CHAMPION
+Champions Tour 2024: Americas Kickoff,Sentinels,johnqt,MA,SENTINEL,CHAMPION
+Champions Tour 2024: Americas Kickoff,Sentinels,Sacy,BR,INITIATOR,CHAMPION
+Champions Tour 2024: EMEA Kickoff,Karmine Corp,N4RRATE,US,INITIATOR,CHAMPION
+Champions Tour 2024: EMEA Kickoff,Karmine Corp,marteen,CZ,DUELIST,CHAMPION
+Champions Tour 2024: EMEA Kickoff,Karmine Corp,MAGNUM,CZ,SENTINEL,CHAMPION
+Champions Tour 2024: EMEA Kickoff,Karmine Corp,tomaszy,PT,CONTROLLER,CHAMPION
+Champions Tour 2024: EMEA Kickoff,Karmine Corp,sh1n,FR,CONTROLLER,CHAMPION
+Champions Tour 2024: Pacific Kickoff,Gen.G,t3xture,KR,DUELIST,CHAMPION
+Champions Tour 2024: Pacific Kickoff,Gen.G,Karon,KR,CONTROLLER,CHAMPION
+Champions Tour 2024: Pacific Kickoff,Gen.G,Meteor,KR,SENTINEL,CHAMPION
+Champions Tour 2024: Pacific Kickoff,Gen.G,Munchkin,KR,INITIATOR,CHAMPION
+Champions Tour 2024: Pacific Kickoff,Gen.G,Lakia,KR,INITIATOR,CHAMPION
+Champions Tour 2024: China Kickoff,EDward Gaming,Haodong,CN,SENTINEL,CHAMPION
+Champions Tour 2024: China Kickoff,EDward Gaming,ZmjjKK,CN,DUELIST,CHAMPION
+Champions Tour 2024: China Kickoff,EDward Gaming,nobody,CN,INITIATOR,CHAMPION
+Champions Tour 2024: China Kickoff,EDward Gaming,CHICHOO,CN,CONTROLLER,CHAMPION
+Champions Tour 2024: China Kickoff,EDward Gaming,Smoggy,CN,INITIATOR,CHAMPION
+Champions Tour 2024: Masters Madrid,Sentinels,zekken,US,DUELIST,CHAMPION
+Champions Tour 2024: Masters Madrid,Sentinels,johnqt,MA,SENTINEL,CHAMPION
+Champions Tour 2024: Masters Madrid,Sentinels,TenZ,CA,INITIATOR,CHAMPION
+Champions Tour 2024: Masters Madrid,Sentinels,Zellsis,US,FLEX,CHAMPION
+Champions Tour 2024: Masters Madrid,Sentinels,Sacy,BR,INITIATOR,CHAMPION
+Champions Tour 2024: Americas Stage 1,100 Thieves,Cryocells,US,CONTROLLER,CHAMPION
+Champions Tour 2024: Americas Stage 1,100 Thieves,eeiu,CA,INITIATOR,CHAMPION
+Champions Tour 2024: Americas Stage 1,100 Thieves,bang,US,CONTROLLER,CHAMPION
+Champions Tour 2024: Americas Stage 1,100 Thieves,Asuna,US,INITIATOR,CHAMPION
+Champions Tour 2024: Americas Stage 1,100 Thieves,Boostio,US,SENTINEL,CHAMPION
+Champions Tour 2024: EMEA Stage 1,Fnatic,Leo,SE,INITIATOR,CHAMPION
+Champions Tour 2024: EMEA Stage 1,Fnatic,Alfajer,TR,SENTINEL,CHAMPION
+Champions Tour 2024: EMEA Stage 1,Fnatic,Chronicle,RU,INITIATOR,CHAMPION
+Champions Tour 2024: EMEA Stage 1,Fnatic,Derke,FI,DUELIST,CHAMPION
+Champions Tour 2024: EMEA Stage 1,Fnatic,Boaster,GB,CONTROLLER,CHAMPION
+Champions Tour 2024: Pacific Stage 1,Paper Rex,something,RU,DUELIST,CHAMPION
+Champions Tour 2024: Pacific Stage 1,Paper Rex,d4v41,MY,FLEX,CHAMPION
+Champions Tour 2024: Pacific Stage 1,Paper Rex,Jinggg,SG,DUELIST,CHAMPION
+Champions Tour 2024: Pacific Stage 1,Paper Rex,mindfreak,ID,CONTROLLER,CHAMPION
+Champions Tour 2024: Pacific Stage 1,Paper Rex,f0rsakeN,ID,FLEX,CHAMPION
+Champions Tour 2024: China Stage 1,EDward Gaming,nobody,CN,INITIATOR,CHAMPION
+Champions Tour 2024: China Stage 1,EDward Gaming,CHICHOO,CN,SENTINEL,CHAMPION
+Champions Tour 2024: China Stage 1,EDward Gaming,Smoggy,CN,DUELIST,CHAMPION
+Champions Tour 2024: China Stage 1,EDward Gaming,Haodong,CN,FLEX,CHAMPION
+Champions Tour 2024: China Stage 1,EDward Gaming,ZmjjKK,CN,DUELIST,CHAMPION
+Champions Tour 2024: Masters Shanghai,Gen.G,Meteor,KR,SENTINEL,CHAMPION
+Champions Tour 2024: Masters Shanghai,Gen.G,Karon,KR,CONTROLLER,CHAMPION
+Champions Tour 2024: Masters Shanghai,Gen.G,Munchkin,KR,INITIATOR,CHAMPION
+Champions Tour 2024: Masters Shanghai,Gen.G,t3xture,KR,DUELIST,CHAMPION
+Champions Tour 2024: Masters Shanghai,Gen.G,Lakia,KR,INITIATOR,CHAMPION
+Champions Tour 2024: Americas Stage 2,Leviatán,aspas,BR,DUELIST,CHAMPION
+Champions Tour 2024: Americas Stage 2,Leviatán,kiNgg,CL,CONTROLLER,CHAMPION
+Champions Tour 2024: Americas Stage 2,Leviatán,Mazino,CL,CONTROLLER,CHAMPION
+Champions Tour 2024: Americas Stage 2,Leviatán,tex,DE,SENTINEL,CHAMPION
+Champions Tour 2024: Americas Stage 2,Leviatán,C0M,US,INITIATOR,CHAMPION
+Champions Tour 2024: EMEA Stage 2,Fnatic,Chronicle,RU,SENTINEL,CHAMPION
+Champions Tour 2024: EMEA Stage 2,Fnatic,Derke,FI,DUELIST,CHAMPION
+Champions Tour 2024: EMEA Stage 2,Fnatic,Alfajer,TR,SENTINEL,CHAMPION
+Champions Tour 2024: EMEA Stage 2,Fnatic,hiro,TR,INITIATOR,CHAMPION
+Champions Tour 2024: EMEA Stage 2,Fnatic,Boaster,GB,CONTROLLER,CHAMPION
+Champions Tour 2024: Pacific Stage 2,Gen.G,Karon,KR,CONTROLLER,CHAMPION
+Champions Tour 2024: Pacific Stage 2,Gen.G,Munchkin,KR,INITIATOR,CHAMPION
+Champions Tour 2024: Pacific Stage 2,Gen.G,t3xture,KR,DUELIST,CHAMPION
+Champions Tour 2024: Pacific Stage 2,Gen.G,Meteor,KR,SENTINEL,CHAMPION
+Champions Tour 2024: Pacific Stage 2,Gen.G,Lakia,KR,INITIATOR,CHAMPION
+Champions Tour 2024: China Stage 2,EDward Gaming,Haodong,CN,INITIATOR,CHAMPION
+Champions Tour 2024: China Stage 2,EDward Gaming,ZmjjKK,CN,DUELIST,CHAMPION
+Champions Tour 2024: China Stage 2,EDward Gaming,nobody,CN,INITIATOR,CHAMPION
+Champions Tour 2024: China Stage 2,EDward Gaming,CHICHOO,CN,CONTROLLER,CHAMPION
+Champions Tour 2024: China Stage 2,EDward Gaming,Smoggy,CN,CONTROLLER,CHAMPION
+Champions Tour 2024: China Stage 2,EDward Gaming,S1Mon,TW,INITIATOR,CHAMPION
+Valorant Champions 2024,EDward Gaming,CHICHOO,CN,CONTROLLER,CHAMPION
+Valorant Champions 2024,EDward Gaming,Smoggy,CN,CONTROLLER,CHAMPION
+Valorant Champions 2024,EDward Gaming,ZmjjKK,CN,DUELIST,CHAMPION
+Valorant Champions 2024,EDward Gaming,S1Mon,TW,INITIATOR,CHAMPION
+Valorant Champions 2024,EDward Gaming,nobody,CN,INITIATOR,CHAMPION
+VCT 2025: Americas Kickoff,G2 Esports,trent,US,INITIATOR,CHAMPION
+VCT 2025: Americas Kickoff,G2 Esports,leaf,US,SENTINEL,CHAMPION
+VCT 2025: Americas Kickoff,G2 Esports,JonahP,CA,INITIATOR,CHAMPION
+VCT 2025: Americas Kickoff,G2 Esports,valyn,US,CONTROLLER,CHAMPION
+VCT 2025: Americas Kickoff,G2 Esports,jawgemo,KH,DUELIST,CHAMPION
+VCT 2025: EMEA Kickoff,Team Vitality,Derke,FI,DUELIST,CHAMPION
+VCT 2025: EMEA Kickoff,Team Vitality,Sayf,SE,FLEX,CHAMPION
+VCT 2025: EMEA Kickoff,Team Vitality,Less,BR,SENTINEL,CHAMPION
+VCT 2025: EMEA Kickoff,Team Vitality,trexx,RU,INITIATOR,CHAMPION
+VCT 2025: EMEA Kickoff,Team Vitality,Kicks,EE,INITIATOR,CHAMPION
+VCT 2025: Pacific Kickoff,Kiwoom DRX,free1ng,KR,INITIATOR,CHAMPION
+VCT 2025: Pacific Kickoff,Kiwoom DRX,MaKo,KR,CONTROLLER,CHAMPION
+VCT 2025: Pacific Kickoff,Kiwoom DRX,HYUNMIN,KR,DUELIST,CHAMPION
+VCT 2025: Pacific Kickoff,Kiwoom DRX,BeYN,KR,INITIATOR,CHAMPION
+VCT 2025: Pacific Kickoff,Kiwoom DRX,Flashback,KR,SENTINEL,CHAMPION
+VCT 2025: China Kickoff,EDward Gaming,nobody,CN,INITIATOR,CHAMPION
+VCT 2025: China Kickoff,EDward Gaming,ZmjjKK,CN,DUELIST,CHAMPION
+VCT 2025: China Kickoff,EDward Gaming,Smoggy,CN,CONTROLLER,CHAMPION
+VCT 2025: China Kickoff,EDward Gaming,S1Mon,TW,INITIATOR,CHAMPION
+VCT 2025: China Kickoff,EDward Gaming,CHICHOO,CN,CONTROLLER,CHAMPION
+Valorant Masters Bangkok 2025,T1,iZu,KR,FLEX,CHAMPION
+Valorant Masters Bangkok 2025,T1,BuZz,KR,DUELIST,CHAMPION
+Valorant Masters Bangkok 2025,T1,Meteor,KR,SENTINEL,CHAMPION
+Valorant Masters Bangkok 2025,T1,Sylvan,KR,CONTROLLER,CHAMPION
+Valorant Masters Bangkok 2025,T1,stax,KR,INITIATOR,CHAMPION
+Valorant Masters Bangkok 2025,T1,carpe,KR,CONTROLLER,CHAMPION
+VCT 2025: Americas Stage 1,G2 Esports,trent,US,INITIATOR,CHAMPION
+VCT 2025: Americas Stage 1,G2 Esports,leaf,US,SENTINEL,CHAMPION
+VCT 2025: Americas Stage 1,G2 Esports,valyn,US,CONTROLLER,CHAMPION
+VCT 2025: Americas Stage 1,G2 Esports,jawgemo,KH,DUELIST,CHAMPION
+VCT 2025: Americas Stage 1,G2 Esports,JonahP,CA,INITIATOR,CHAMPION
+VCT 2025: EMEA Stage 1,Fnatic,kaajak,PL,DUELIST,CHAMPION
+VCT 2025: EMEA Stage 1,Fnatic,crashies,US,INITIATOR,CHAMPION
+VCT 2025: EMEA Stage 1,Fnatic,Chronicle,RU,SENTINEL,CHAMPION
+VCT 2025: EMEA Stage 1,Fnatic,Alfajer,TR,SENTINEL,CHAMPION
+VCT 2025: EMEA Stage 1,Fnatic,Boaster,GB,CONTROLLER,CHAMPION
+VCT 2025: Pacific Stage 1,RRQ,Jemkin,RU,DUELIST,CHAMPION
+VCT 2025: Pacific Stage 1,RRQ,Kushy,ID,INITIATOR,CHAMPION
+VCT 2025: Pacific Stage 1,RRQ,xffero,ID,SENTINEL,CHAMPION
+VCT 2025: Pacific Stage 1,RRQ,crazyguy,VN,INITIATOR,CHAMPION
+VCT 2025: Pacific Stage 1,RRQ,Monyet,ID,CONTROLLER,CHAMPION
+VCT 2025: China Stage 1,Xi Lai Gaming,Rarga,RU,DUELIST,CHAMPION
+VCT 2025: China Stage 1,Xi Lai Gaming,Viva,CN,INITIATOR,CHAMPION
+VCT 2025: China Stage 1,Xi Lai Gaming,coconut,HK,INITIATOR,CHAMPION
+VCT 2025: China Stage 1,Xi Lai Gaming,YOU,HK,FLEX,CHAMPION
+VCT 2025: China Stage 1,Xi Lai Gaming,happywei,TW,CONTROLLER,CHAMPION
+VCT 2025: Americas Stage 2,G2 Esports,valyn,US,CONTROLLER,CHAMPION
+VCT 2025: Americas Stage 2,G2 Esports,JonahP,CA,SENTINEL,CHAMPION
+VCT 2025: Americas Stage 2,G2 Esports,trent,US,INITIATOR,CHAMPION
+VCT 2025: Americas Stage 2,G2 Esports,leaf,US,SENTINEL,CHAMPION
+VCT 2025: Americas Stage 2,G2 Esports,jawgemo,KH,DUELIST,CHAMPION
+VCT 2025: Americas Stage 2,G2 Esports,BABYBAY,US,SENTINEL,CHAMPION
+VCT 2025: EMEA Stage 2,Team Liquid,keiko,GB,FLEX,CHAMPION
+VCT 2025: EMEA Stage 2,Team Liquid,nAts,RU,SENTINEL,CHAMPION
+VCT 2025: EMEA Stage 2,Team Liquid,trexx,RU,INITIATOR,CHAMPION
+VCT 2025: EMEA Stage 2,Team Liquid,paTiTek,PL,INITIATOR,CHAMPION
+VCT 2025: EMEA Stage 2,Team Liquid,kamo,PL,DUELIST,CHAMPION
+VCT 2025: Pacific Stage 2,Paper Rex,something,RU,DUELIST,CHAMPION
+VCT 2025: Pacific Stage 2,Paper Rex,Jinggg,SG,FLEX,CHAMPION
+VCT 2025: Pacific Stage 2,Paper Rex,d4v41,MY,SENTINEL,CHAMPION
+VCT 2025: Pacific Stage 2,Paper Rex,f0rsakeN,ID,CONTROLLER,CHAMPION
+VCT 2025: Pacific Stage 2,Paper Rex,PatMen,PH,INITIATOR,CHAMPION
+VCT 2025: China Stage 2,Bilibili Gaming,whzy,CN,DUELIST,CHAMPION
+VCT 2025: China Stage 2,Bilibili Gaming,rushia,CN,CONTROLLER,CHAMPION
+VCT 2025: China Stage 2,Bilibili Gaming,nephh,SG,CONTROLLER,CHAMPION
+VCT 2025: China Stage 2,Bilibili Gaming,Knight,CN,INITIATOR,CHAMPION
+VCT 2025: China Stage 2,Bilibili Gaming,Levius,CN,SENTINEL,CHAMPION
+Valorant Masters Toronto 2025,Paper Rex,f0rsakeN,ID,INITIATOR,CHAMPION
+Valorant Masters Toronto 2025,Paper Rex,Jinggg,SG,DUELIST,CHAMPION
+Valorant Masters Toronto 2025,Paper Rex,d4v41,MY,SENTINEL,CHAMPION
+Valorant Masters Toronto 2025,Paper Rex,PatMen,PH,INITIATOR,CHAMPION
+Valorant Masters Toronto 2025,Paper Rex,something,RU,DUELIST,CHAMPION
+Valorant Champions 2025,NRG,brawk,US,INITIATOR,CHAMPION
+Valorant Champions 2025,NRG,skuba,US,SENTINEL,CHAMPION
+Valorant Champions 2025,NRG,mada,CA,DUELIST,CHAMPION
+Valorant Champions 2025,NRG,s0m,US,CONTROLLER,CHAMPION
+Valorant Champions 2025,NRG,Ethan,US,INITIATOR,CHAMPION
+VCT 2026: Americas Kickoff,FURIA,koalanoob,CA,FLEX,CHAMPION
+VCT 2026: Americas Kickoff,FURIA,artzin,BR,CONTROLLER,CHAMPION
+VCT 2026: Americas Kickoff,FURIA,eeiu,CA,INITIATOR,CHAMPION
+VCT 2026: Americas Kickoff,FURIA,alym,KG,DUELIST,CHAMPION
+VCT 2026: Americas Kickoff,FURIA,nerve,US,CONTROLLER,CHAMPION
+VCT 2026: Americas Stage 1,G2 Esports,trent,US,INITIATOR,CHAMPION
+VCT 2026: Americas Stage 1,G2 Esports,valyn,US,CONTROLLER,CHAMPION
+VCT 2026: Americas Stage 1,G2 Esports,BABYBAY,US,SENTINEL,CHAMPION
+VCT 2026: Americas Stage 1,G2 Esports,leaf,US,CONTROLLER,CHAMPION
+VCT 2026: Americas Stage 1,G2 Esports,jawgemo,KH,DUELIST,CHAMPION
+VCT 2026: EMEA Kickoff,BBL Esports,lovers rock,TR,DUELIST,CHAMPION
+VCT 2026: EMEA Kickoff,BBL Esports,Loita,TR,CONTROLLER,CHAMPION
+VCT 2026: EMEA Kickoff,BBL Esports,Lar0k,TR,DUELIST,CHAMPION
+VCT 2026: EMEA Kickoff,BBL Esports,Rosé,TR,INITIATOR,CHAMPION
+VCT 2026: EMEA Kickoff,BBL Esports,Crewen,TR,SENTINEL,CHAMPION
+VCT 2026: EMEA Stage 1,Team Heretics,RieNs,TR,INITIATOR,CHAMPION
+VCT 2026: EMEA Stage 1,Team Heretics,Wo0t,TR,DUELIST,CHAMPION
+VCT 2026: EMEA Stage 1,Team Heretics,Boo,LT,CONTROLLER,CHAMPION
+VCT 2026: EMEA Stage 1,Team Heretics,benjyfishy,GB,SENTINEL,CHAMPION
+VCT 2026: EMEA Stage 1,Team Heretics,koshmaras,LT,DUELIST,CHAMPION
+VCT 2026: Pacific Kickoff,Nongshim RedForce,Rb,KR,CONTROLLER,CHAMPION
+VCT 2026: Pacific Kickoff,Nongshim RedForce,Dambi,KR,DUELIST,CHAMPION
+VCT 2026: Pacific Kickoff,Nongshim RedForce,Xross,KR,INITIATOR,CHAMPION
+VCT 2026: Pacific Kickoff,Nongshim RedForce,Ivy,KR,SENTINEL,CHAMPION
+VCT 2026: Pacific Kickoff,Nongshim RedForce,Francis,KR,DUELIST,CHAMPION
+VCT 2026: Pacific Stage 1,Paper Rex,something,RU,DUELIST,CHAMPION
+VCT 2026: Pacific Stage 1,Paper Rex,Jinggg,SG,DUELIST,CHAMPION
+VCT 2026: Pacific Stage 1,Paper Rex,invy,PH,INITIATOR,CHAMPION
+VCT 2026: Pacific Stage 1,Paper Rex,f0rsakeN,ID,CONTROLLER,CHAMPION
+VCT 2026: Pacific Stage 1,Paper Rex,d4v41,MY,SENTINEL,CHAMPION
+VCT 2026: China Kickoff,All Gamers,Shr1mp,CN,INITIATOR,CHAMPION
+VCT 2026: China Kickoff,All Gamers,f4ngeer,RU,DUELIST,CHAMPION
+VCT 2026: China Kickoff,All Gamers,K1ra,CN,FLEX,CHAMPION
+VCT 2026: China Kickoff,All Gamers,iamgrq,CN,CONTROLLER,CHAMPION
+VCT 2026: China Kickoff,All Gamers,Au1,CN,SENTINEL,CHAMPION
+VCT 2026: China Stage 1,EDward Gaming,Smoggy,CN,CONTROLLER,CHAMPION
+VCT 2026: China Stage 1,EDward Gaming,CHICHOO,CN,SENTINEL,CHAMPION
+VCT 2026: China Stage 1,EDward Gaming,ZmjjKK,CN,DUELIST,CHAMPION
+VCT 2026: China Stage 1,EDward Gaming,nobody,CN,INITIATOR,CHAMPION
+VCT 2026: China Stage 1,EDward Gaming,Jieni7,CN,FLEX,CHAMPION
+Valorant Masters Santiago 2026,Nongshim RedForce,Xross,KR,INITIATOR,CHAMPION
+Valorant Masters Santiago 2026,Nongshim RedForce,Dambi,KR,DUELIST,CHAMPION
+Valorant Masters Santiago 2026,Nongshim RedForce,Ivy,KR,SENTINEL,CHAMPION
+Valorant Masters Santiago 2026,Nongshim RedForce,Francis,KR,DUELIST,CHAMPION
+Valorant Masters Santiago 2026,Nongshim RedForce,Rb,KR,CONTROLLER,CHAMPION
+Esports World Cup 2025: Valorant,Team Heretics,Wo0t,TR,FLEX,A
+Esports World Cup 2025: Valorant,Team Heretics,RieNs,TR,INITIATOR,A
+Esports World Cup 2025: Valorant,Team Heretics,MiniBoo,LT,DUELIST,B
+Esports World Cup 2025: Valorant,Team Heretics,benjyfishy,GB,SENTINEL,C
+Esports World Cup 2025: Valorant,Team Heretics,Boo,LT,CONTROLLER,B
+Esports World Cup 2025: Valorant,Fnatic,Chronicle,RU,FLEX,A
+Esports World Cup 2025: Valorant,Fnatic,kaajak,PL,DUELIST,A
+Esports World Cup 2025: Valorant,Fnatic,Alfajer,TR,SENTINEL,A
+Esports World Cup 2025: Valorant,Fnatic,crashies,US,INITIATOR,B
+Esports World Cup 2025: Valorant,Fnatic,Boaster,GB,CONTROLLER,C
+Esports World Cup 2025: Valorant,Gen.G,t3xture,KR,DUELIST,A
+Esports World Cup 2025: Valorant,Gen.G,Foxy9,KR,FLEX,A
+Esports World Cup 2025: Valorant,Gen.G,Munchkin,KR,SENTINEL,A
+Esports World Cup 2025: Valorant,Gen.G,Karon,KR,CONTROLLER,B
+Esports World Cup 2025: Valorant,Gen.G,Ash,KR,INITIATOR,C
+Esports World Cup 2025: Valorant,Paper Rex,something,RU,FLEX,A
+Esports World Cup 2025: Valorant,Paper Rex,Jinggg,SG,DUELIST,A
+Esports World Cup 2025: Valorant,Paper Rex,f0rsakeN,ID,DUELIST,A
+Esports World Cup 2025: Valorant,Paper Rex,d4v41,MY,FLEX,B
+Esports World Cup 2025: Valorant,Paper Rex,PatMen,PH,CONTROLLER,C
+Esports World Cup 2025: Valorant,Karmine Corp,Avez,EG,DUELIST,A
+Esports World Cup 2025: Valorant,Karmine Corp,SUYGETSU,RU,FLEX,B
+Esports World Cup 2025: Valorant,Karmine Corp,marteen,CZ,DUELIST,B
+Esports World Cup 2025: Valorant,Karmine Corp,Elite,TR,SENTINEL,B
+Esports World Cup 2025: Valorant,Karmine Corp,saadhak,AR,CONTROLLER,C
+Esports World Cup 2025: Valorant,Sentinels,N4RRATE,US,INITIATOR,A
+Esports World Cup 2025: Valorant,Sentinels,zekken,US,DUELIST,A
+Esports World Cup 2025: Valorant,Sentinels,bang,US,FLEX,B
+Esports World Cup 2025: Valorant,Sentinels,Zellsis,US,FLEX,C
+Esports World Cup 2025: Valorant,Sentinels,johnqt,MA,CONTROLLER,D
+Esports World Cup 2025: Valorant,NRG,mada,CA,INITIATOR,A
+Esports World Cup 2025: Valorant,NRG,s0m,US,CONTROLLER,A
+Esports World Cup 2025: Valorant,NRG,skuba,US,DUELIST,A
+Esports World Cup 2025: Valorant,NRG,brawk,US,INITIATOR,B
+Esports World Cup 2025: Valorant,NRG,Ethan,US,FLEX,B
+Esports World Cup 2025: Valorant,BBL Esports,LewN,TR,DUELIST,B
+Esports World Cup 2025: Valorant,BBL Esports,PROFEK,PL,CONTROLLER,B
+Esports World Cup 2025: Valorant,BBL Esports,sociablEE,TR,INITIATOR,B
+Esports World Cup 2025: Valorant,BBL Esports,Jamppi,FI,INITIATOR,B
+Esports World Cup 2025: Valorant,BBL Esports,MAGNUM,CZ,SENTINEL,B
+Esports World Cup 2025: Valorant,Team Heretics,Wo0t,TR,FLEX,CHAMPION
+Esports World Cup 2025: Valorant,Team Heretics,RieNs,TR,INITIATOR,CHAMPION
+Esports World Cup 2025: Valorant,Team Heretics,MiniBoo,LT,DUELIST,CHAMPION
+Esports World Cup 2025: Valorant,Team Heretics,benjyfishy,GB,SENTINEL,CHAMPION
+Esports World Cup 2025: Valorant,Team Heretics,Boo,LT,CONTROLLER,CHAMPION
+Esports World Cup 2025: Valorant,G2 Esports,trent,US,INITIATOR,C
+Esports World Cup 2025: Valorant,G2 Esports,JonahP,US,INITIATOR,B
+Esports World Cup 2025: Valorant,G2 Esports,valyn,US,CONTROLLER,B
+Esports World Cup 2025: Valorant,G2 Esports,jawgemo,US,DUELIST,B
+Esports World Cup 2025: Valorant,G2 Esports,shhhack,US,FLEX,C
+Esports World Cup 2025: Valorant,100 Thieves,eeiu,HR,DUELIST,A
+Esports World Cup 2025: Valorant,100 Thieves,zander,US,FLEX,B
+Esports World Cup 2025: Valorant,100 Thieves,Asuna,US,DUELIST,B
+Esports World Cup 2025: Valorant,100 Thieves,Cryocells,US,DUELIST,A
+Esports World Cup 2025: Valorant,100 Thieves,Boostio,US,CONTROLLER,D
+Esports World Cup 2025: Valorant,RRQ,Jemkin,RU,DUELIST,B
+Esports World Cup 2025: Valorant,RRQ,xffero,ID,FLEX,B
+Esports World Cup 2025: Valorant,RRQ,crazyguy,VN,FLEX,B
+Esports World Cup 2025: Valorant,RRQ,Monyet,ID,INITIATOR,C
+Esports World Cup 2025: Valorant,RRQ,Kushy,ID,DUELIST,B
+Esports World Cup 2025: Valorant,Kiwoom DRX,MaKo,KR,CONTROLLER,B
+Esports World Cup 2025: Valorant,Kiwoom DRX,BeYN,KR,DUELIST,C
+Esports World Cup 2025: Valorant,Kiwoom DRX,free1ng,KR,SENTINEL,B
+Esports World Cup 2025: Valorant,Kiwoom DRX,Flicker,KR,FLEX,C
+Esports World Cup 2025: Valorant,Kiwoom DRX,HYUNMIN,KR,DUELIST,B
+Esports World Cup 2025: Valorant,Xi Lai Gaming,happywei,TW,DUELIST,A
+Esports World Cup 2025: Valorant,Xi Lai Gaming,Viva,CN,CONTROLLER,B
+Esports World Cup 2025: Valorant,Xi Lai Gaming,coconut,HK,SENTINEL,C
+Esports World Cup 2025: Valorant,Xi Lai Gaming,hvoya,RU,FLEX,C
+Esports World Cup 2025: Valorant,Xi Lai Gaming,Rarga,RU,DUELIST,D
+Esports World Cup 2025: Valorant,Bilibili Gaming,whzy,CN,DUELIST,A
+Esports World Cup 2025: Valorant,Bilibili Gaming,Knight,CN,CONTROLLER,A
+Esports World Cup 2025: Valorant,Bilibili Gaming,nephh,SG,SENTINEL,B
+Esports World Cup 2025: Valorant,Bilibili Gaming,rushia,CN,CONTROLLER,C
+Esports World Cup 2025: Valorant,Bilibili Gaming,Levius,CN,FLEX,C
+Esports World Cup 2025: Valorant,EDward Gaming,ZmjjKK,CN,FLEX,A
+Esports World Cup 2025: Valorant,EDward Gaming,nobody,CN,INITIATOR,B
+Esports World Cup 2025: Valorant,EDward Gaming,Smoggy,CN,SENTINEL,C
+Esports World Cup 2025: Valorant,EDward Gaming,CHICHOO,CN,DUELIST,B
+Esports World Cup 2025: Valorant,EDward Gaming,zjc,CN,CONTROLLER,D
+Esports World Cup 2025: Valorant,Titan Esports Club,TvirusLuke,TW,INITIATOR,B
+Esports World Cup 2025: Valorant,Titan Esports Club,lucas,HK,FLEX,B
+Esports World Cup 2025: Valorant,Titan Esports Club,Abo,CN,DUELIST,C
+Esports World Cup 2025: Valorant,Titan Esports Club,CoCo,CN,SENTINEL,D
+Esports World Cup 2025: Valorant,Titan Esports Club,Haodong,CN,FLEX,C

@@ -146,7 +146,7 @@ export const LEAGUE_LOGOS = Object.fromEntries([
   ...CHINA_SEASONS.map((id)   => [id, '/logos/leagues/vct-china.png']),
   ...MASTERS_SEASONS.map((id) => [id, '/logos/leagues/vct-masters-2025.png']),
   ...CHAMPIONS_SEASONS.map((id) => [id, '/logos/leagues/vct-champions-2025.png']),
-  ['masters-bangkok-25', '/logos/leagues/vct-masters-bangkok-25.png'],
+  ['ewc-25', '/logos/leagues/ewc-2025.png'],
 ]);
 
 // 팀 소속 권역

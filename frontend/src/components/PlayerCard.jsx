@@ -26,7 +26,12 @@ function ChemDots({ level = 0 }) {
   );
 }
 
+const DISPLAY_NAME = {
+  'Klaus KR': 'Klaus',
+};
+
 const RANK_COLOR = {
+  CHAMPION:  '#ffffff',
   RADIANT:   '#ffd700',
   IMMORTAL:  '#ef4444',
   ASCENDANT: '#22c55e',
@@ -35,11 +40,12 @@ const RANK_COLOR = {
 
 function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
   const { name, team, nationality, rarity, role, rank, seasonId, seasonLabel, seasonBadge, image_url: imageUrl } = player;
+  const displayName = DISPLAY_NAME[name] || name;
   const teamLogo = TEAM_LOGOS[team];
   const seasonLogo = LEAGUE_LOGOS[seasonId];
   const photoUrl = PLAYER_PHOTOS[name] || imageUrl || '';
   const backgroundStyle = photoUrl
-    ? { backgroundImage: `url(${photoUrl})`, backgroundSize: 'cover', backgroundPosition: 'top center' }
+    ? { backgroundImage: `url("${photoUrl}")`, backgroundSize: 'cover', backgroundPosition: 'top center' }
     : undefined;
 
   return (
@@ -77,7 +83,7 @@ function PlayerCard({ player, delay = 0, chemLevel = 0 }) {
 
       <div className="nationality-mark"><FlagImg code={nationality} /></div>
 
-      <div className="player-name">{name}</div>
+      <div className="player-name">{displayName}</div>
 
       {seasonLabel && (
         <div className="season-mark">
