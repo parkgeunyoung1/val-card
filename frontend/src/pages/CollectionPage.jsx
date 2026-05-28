@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { allPlayers, SEASON_DEFINITIONS } from '../data/seasons';
 import { getCollection } from '../utils/collection';
 import { calcChemistry } from '../utils/chemistry';
@@ -135,40 +135,34 @@ function CollectionPage({ slots, setSlots, onBack }) {
     }
   }
 
-  /* 필터 적용 */
-  const visibleSeasonIds = useMemo(() => {
-    if (selectedYears.size === 0) return null; // null = 제한 없음
+  /* 필터 적용 — 매 렌더마다 직접 계산 (stale 방지) */
+  const visibleSeasonIds = (() => {
+    if (selectedYears.size === 0) return null;
     const ids = new Set();
     selectedYears.forEach(y => (SEASONS_BY_YEAR[y] || []).forEach(s => ids.add(s.id)));
     return ids;
-  }, [selectedYears]);
+  })();
 
-  const filtered = useMemo(() => {
-    let pool;
-    if (selectedSeasons.size > 0) {
-      pool = SORTED_PLAYERS.filter(p => selectedSeasons.has(p.seasonId));
-    } else if (visibleSeasonIds) {
-      pool = SORTED_PLAYERS.filter(p => visibleSeasonIds.has(p.seasonId));
-    } else {
-      pool = SORTED_PLAYERS;
-    }
-
-    if (roleFilters.size > 0)     pool = pool.filter(p => roleFilters.has(p.role));
-    if (colFilter === 'collected') pool = pool.filter(p => collection[p.id] > 0);
-    if (colFilter === 'locked')    pool = pool.filter(p => !collection[p.id]);
-    if (search) pool = pool.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
-
-    return pool;
-  }, [selectedYears, selectedSeasons, roleFilters, colFilter, search, visibleSeasonIds]);
+  let filtered;
+  if (selectedSeasons.size > 0) {
+    filtered = SORTED_PLAYERS.filter(p => selectedSeasons.has(p.seasonId));
+  } else if (visibleSeasonIds) {
+    filtered = SORTED_PLAYERS.filter(p => visibleSeasonIds.has(p.seasonId));
+  } else {
+    filtered = SORTED_PLAYERS;
+  }
+  if (roleFilters.size > 0)     filtered = filtered.filter(p => roleFilters.has(p.role));
+  if (colFilter === 'collected') filtered = filtered.filter(p => collection[p.id] > 0);
+  if (colFilter === 'locked')    filtered = filtered.filter(p => !collection[p.id]);
+  if (search) filtered = filtered.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
 
   const total    = allPlayers.length;
   const obtained = allPlayers.filter(p => collection[p.id] > 0).length;
 
   // 연도 선택 시 해당 연도들의 시즌 표시
-  const visibleYearSeasons = useMemo(() => {
-    if (selectedYears.size === 0) return [];
-    return [...selectedYears].sort().flatMap(y => SEASONS_BY_YEAR[y] || []);
-  }, [selectedYears]);
+  const visibleYearSeasons = selectedYears.size === 0
+    ? []
+    : [...selectedYears].sort().flatMap(y => SEASONS_BY_YEAR[y] || []);
 
   return (
     <div className="col-page" onClick={() => setSelectedCard(null)}>
